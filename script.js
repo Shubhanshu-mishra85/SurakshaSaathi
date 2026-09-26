@@ -1,11 +1,11 @@
 // ==========================================
 // SURAKSHASAATHI
-// Digital Safety Assistant
+// DIGITAL SAFETY ASSISTANT
 // ==========================================
 
 
 // ==========================================
-// 1. CHECK MESSAGE
+// CHECK MESSAGE
 // ==========================================
 
 function checkMessage() {
@@ -28,13 +28,11 @@ function checkMessage() {
         reasons.push("OTP request detected");
     }
 
-
     // Password
     if (message.includes("password")) {
         score += 2;
         reasons.push("Password request detected");
     }
-
 
     // PIN
     if (message.includes("pin")) {
@@ -42,13 +40,11 @@ function checkMessage() {
         reasons.push("PIN request detected");
     }
 
-
     // Urgent
     if (message.includes("urgent")) {
         score += 2;
         reasons.push("Urgent language detected");
     }
-
 
     // Account blocked
     if (message.includes("account blocked")) {
@@ -56,13 +52,11 @@ function checkMessage() {
         reasons.push("Account-blocking threat detected");
     }
 
-
     // Click
     if (message.includes("click")) {
         score += 2;
         reasons.push("Link/click request detected");
     }
-
 
     // Verify
     if (message.includes("verify")) {
@@ -70,13 +64,11 @@ function checkMessage() {
         reasons.push("Verification request detected");
     }
 
-
     // Prize
     if (message.includes("prize")) {
         score += 2;
         reasons.push("Prize-related claim detected");
     }
-
 
     // Winner
     if (message.includes("winner")) {
@@ -84,13 +76,11 @@ function checkMessage() {
         reasons.push("Winner-related claim detected");
     }
 
-
     // Money
     if (message.includes("money")) {
         score += 2;
         reasons.push("Money-related request detected");
     }
-
 
     // Payment
     if (message.includes("payment")) {
@@ -98,13 +88,11 @@ function checkMessage() {
         reasons.push("Payment request detected");
     }
 
-
     // KYC
     if (message.includes("kyc")) {
         score += 2;
         reasons.push("KYC-related request detected");
     }
-
 
     // Bank
     if (message.includes("bank")) {
@@ -112,22 +100,19 @@ function checkMessage() {
         reasons.push("Bank-related message detected");
     }
 
-
     // Lottery
     if (message.includes("lottery")) {
         score += 3;
         reasons.push("Lottery-related claim detected");
     }
 
-
-    // Job scam
+    // Job
     if (message.includes("job")) {
         score += 1;
-        reasons.push("Job-related request detected");
+        reasons.push("Job-related message detected");
     }
 
-
-    // Delivery scam
+    // Delivery
     if (message.includes("delivery")) {
         score += 1;
         reasons.push("Delivery-related message detected");
@@ -138,9 +123,8 @@ function checkMessage() {
 }
 
 
-
 // ==========================================
-// 2. MESSAGE RESULT
+// MESSAGE RESULT
 // ==========================================
 
 function showMessageResult(score, reasons) {
@@ -180,9 +164,7 @@ function showMessageResult(score, reasons) {
             </p>
         `;
 
-    }
-
-    else if (score >= 2) {
+    } else if (score >= 2) {
 
         result.innerHTML = `
             <h3>🟡 CAUTION</h3>
@@ -206,9 +188,7 @@ function showMessageResult(score, reasons) {
             </p>
         `;
 
-    }
-
-    else {
+    } else {
 
         result.innerHTML = `
             <h3>🟢 NO MAJOR WARNING SIGNAL</h3>
@@ -232,9 +212,8 @@ function showMessageResult(score, reasons) {
 }
 
 
-
 // ==========================================
-// 3. CHECK LINK
+// CHECK LINK
 // ==========================================
 
 function checkLink() {
@@ -245,13 +224,13 @@ function checkLink() {
         return;
     }
 
-    link = link.toLowerCase().trim();
+    link = link.trim().toLowerCase();
 
     let score = 0;
     let reasons = [];
 
 
-    // HTTP instead of HTTPS
+    // HTTP
     if (link.startsWith("http://")) {
 
         score += 2;
@@ -262,8 +241,11 @@ function checkLink() {
     }
 
 
-    // IP address instead of domain
-    if (/https?:\/\/\d+\.\d+\.\d+\.\d+/.test(link)) {
+    // IP address
+    let ipPattern =
+        /https?:\/\/\d+\.\d+\.\d+\.\d+/;
+
+    if (ipPattern.test(link)) {
 
         score += 3;
 
@@ -273,71 +255,116 @@ function checkLink() {
     }
 
 
-    // Suspicious words
-    let suspiciousWords = [
+    // Login
+    if (link.includes("login")) {
 
-        "login",
-        "verify",
-        "account",
-        "update",
-        "secure",
-        "claim",
-        "prize",
-        "winner",
-        "urgent",
-        "free",
-        "otp",
-        "password"
+        score += 1;
 
-    ];
+        reasons.push(
+            "Login-related URL detected"
+        );
+    }
 
 
-    suspiciousWords.forEach(function(word) {
+    // Verify
+    if (link.includes("verify")) {
 
-        if (link.includes(word)) {
+        score += 1;
 
-            score += 1;
-
-            reasons.push(
-                "Suspicious word detected: " + word
-            );
-        }
-
-    });
+        reasons.push(
+            "Verification-related URL detected"
+        );
+    }
 
 
-    // URL shorteners
-    let shortDomains = [
+    // Urgent
+    if (link.includes("urgent")) {
 
-        "bit.ly",
-        "tinyurl.com",
-        "t.co",
-        "goo.gl"
+        score += 2;
 
-    ];
+        reasons.push(
+            "Urgent language detected"
+        );
+    }
 
 
-    shortDomains.forEach(function(domain) {
+    // Prize
+    if (link.includes("prize")) {
 
-        if (link.includes(domain)) {
+        score += 2;
 
-            score += 2;
+        reasons.push(
+            "Prize-related URL detected"
+        );
+    }
 
-            reasons.push(
-                "Shortened URL detected"
-            );
-        }
 
-    });
+    // Winner
+    if (link.includes("winner")) {
+
+        score += 2;
+
+        reasons.push(
+            "Winner-related URL detected"
+        );
+    }
+
+
+    // Account
+    if (link.includes("account")) {
+
+        score += 1;
+
+        reasons.push(
+            "Account-related URL detected"
+        );
+    }
+
+
+    // OTP
+    if (link.includes("otp")) {
+
+        score += 2;
+
+        reasons.push(
+            "OTP-related URL detected"
+        );
+    }
+
+
+    // Password
+    if (link.includes("password")) {
+
+        score += 2;
+
+        reasons.push(
+            "Password-related URL detected"
+        );
+    }
+
+
+    // Shortened URLs
+    if (
+        link.includes("bit.ly") ||
+        link.includes("tinyurl.com") ||
+        link.includes("t.co") ||
+        link.includes("goo.gl")
+    ) {
+
+        score += 2;
+
+        reasons.push(
+            "Shortened URL detected"
+        );
+    }
 
 
     showLinkResult(score, reasons);
 }
 
 
-
 // ==========================================
-// 4. LINK RESULT
+// LINK RESULT
 // ==========================================
 
 function showLinkResult(score, reasons) {
@@ -380,10 +407,7 @@ function showLinkResult(score, reasons) {
 
         `;
 
-    }
-
-
-    else if (score >= 2) {
+    } else if (score >= 2) {
 
         result.innerHTML = `
 
@@ -410,10 +434,7 @@ function showLinkResult(score, reasons) {
 
         `;
 
-    }
-
-
-    else {
+    } else {
 
         result.innerHTML = `
 
@@ -440,9 +461,8 @@ function showLinkResult(score, reasons) {
 }
 
 
-
 // ==========================================
-// 5. SAFETY TIPS
+// SAFETY TIPS
 // ==========================================
 
 function showTips() {
@@ -461,17 +481,25 @@ function showTips() {
 
         <p>📞 Don't trust unknown callers immediately.</p>
 
-        <p>🏦 Verify bank-related messages
-        through the official bank website/app.</p>
+        <p>
+            🏦 Verify bank-related messages
+            through the official bank website or app.
+        </p>
 
-        <p>💳 Never make a payment because
-        someone creates urgency.</p>
+        <p>
+            💳 Never make a payment because
+            someone creates urgency.
+        </p>
 
-        <p>🎁 Be careful with unexpected
-        prize or lottery messages.</p>
+        <p>
+            🎁 Be careful with unexpected
+            prize or lottery messages.
+        </p>
 
-        <p>👨‍👩‍👧 When unsure, ask a trusted
-        family member for help.</p>
+        <p>
+            👨‍👩‍👧 When unsure, ask a trusted
+            family member for help.
+        </p>
 
     `;
 }
