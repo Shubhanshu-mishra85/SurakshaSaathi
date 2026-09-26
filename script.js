@@ -1,6 +1,6 @@
 /* =====================================================
-   VARUMIZU
-   DIGITAL SAFETY SYSTEM
+   VARUMIZU V2
+   DIGITAL SAFETY INTELLIGENCE
 ===================================================== */
 
 
@@ -32,21 +32,61 @@ window.addEventListener("load", function () {
 
 
 /* =====================================================
+   ELDERLY MODE
+===================================================== */
+
+function toggleElderlyMode() {
+
+  document.body.classList.toggle("elderlyMode");
+
+  const enabled =
+    document.body.classList.contains("elderlyMode");
+
+  localStorage.setItem(
+    "varumizuElderlyMode",
+    enabled ? "on" : "off"
+  );
+
+}
+
+
+/* Remember mode */
+
+window.addEventListener("load", function () {
+
+  if (
+    localStorage.getItem("varumizuElderlyMode")
+    === "on"
+  ) {
+
+    document.body.classList.add("elderlyMode");
+
+  }
+
+});
+
+
+/* =====================================================
    MESSAGE SCANNER
 ===================================================== */
 
 function checkMessage() {
 
   const message = prompt(
-    "Paste the message you want VARUMIZU to check:"
+    "Paste the message you want VARUMIZU to analyze:"
   );
 
   if (!message) return;
 
-  const text = message.toLowerCase();
 
-  let risk = 0;
+  const text =
+    message.toLowerCase();
+
+
+  let score = 0;
+
   let warnings = [];
+
 
   const rules = [
 
@@ -54,10 +94,12 @@ function checkMessage() {
       words: [
         "otp",
         "one time password",
-        "verification code"
+        "verification code",
+        "share the code"
       ],
       score: 30,
-      warning: "Requests for OTP or verification codes"
+      warning:
+        "The message asks for an OTP or verification code."
     },
 
     {
@@ -65,35 +107,41 @@ function checkMessage() {
         "urgent",
         "immediately",
         "act now",
+        "right now",
         "within 24 hours",
         "account will be blocked"
       ],
       score: 20,
-      warning: "Creates urgency or fear"
+      warning:
+        "The message uses urgency or pressure."
     },
 
     {
       words: [
         "click",
-        "link",
+        "click here",
+        "open this link",
         "verify",
         "login",
         "update your account"
       ],
       score: 20,
-      warning: "Asks you to click or verify something"
+      warning:
+        "The message asks you to click, login or verify something."
     },
 
     {
       words: [
         "bank",
+        "upi",
+        "payment",
         "credit card",
         "debit card",
-        "upi",
-        "payment"
+        "account number"
       ],
       score: 20,
-      warning: "Requests financial or banking action"
+      warning:
+        "The message involves financial or banking information."
     },
 
     {
@@ -102,10 +150,25 @@ function checkMessage() {
         "lottery",
         "winner",
         "reward",
-        "cashback"
+        "cashback",
+        "congratulations"
       ],
       score: 15,
-      warning: "Unexpected prize or reward claim"
+      warning:
+        "The message contains an unexpected reward or prize claim."
+    },
+
+    {
+      words: [
+        "refund",
+        "kyc",
+        "pan card",
+        "aadhaar",
+        "document"
+      ],
+      score: 15,
+      warning:
+        "The message asks for personal or identity information."
     }
 
   ];
@@ -113,14 +176,17 @@ function checkMessage() {
 
   rules.forEach(function (rule) {
 
-    const found =
+    const detected =
       rule.words.some(function (word) {
+
         return text.includes(word);
+
       });
 
-    if (found) {
 
-      risk += rule.score;
+    if (detected) {
+
+      score += rule.score;
 
       warnings.push(rule.warning);
 
@@ -129,84 +195,15 @@ function checkMessage() {
   });
 
 
-  risk = Math.min(risk, 100);
+  score =
+    Math.min(score, 100);
 
 
-  let level = "LOW RISK";
-  let levelClass = "safeText";
-
-  if (risk >= 30 && risk < 60) {
-
-    level = "MEDIUM RISK";
-    levelClass = "warningText";
-
-  }
-
-  if (risk >= 60) {
-
-    level = "HIGH RISK";
-    levelClass = "dangerText";
-
-  }
-
-
-  let warningHTML = "";
-
-  if (warnings.length === 0) {
-
-    warningHTML = `
-      <div class="scanLine">
-        No common scam indicators were detected.
-        This does not guarantee that the message is safe.
-      </div>
-    `;
-
-  } else {
-
-    warnings.forEach(function (warning) {
-
-      warningHTML += `
-        <div class="scanLine">
-          ⚠ ${escapeHTML(warning)}
-        </div>
-      `;
-
-    });
-
-  }
-
-
-  showResult(`
-
-    <div class="warningBox">
-
-      <div class="scanTitle">
-        MESSAGE ANALYSIS
-      </div>
-
-      <div class="scanLine">
-        Risk Level:
-        <span class="${levelClass}">
-          ${level}
-        </span>
-      </div>
-
-      <div class="scanLine">
-        Risk Score:
-        <strong>${risk}/100</strong>
-      </div>
-
-      ${warningHTML}
-
-      <div class="scanLine">
-        <strong>Safety advice:</strong>
-        Never share OTPs, passwords, PINs or recovery codes.
-        Verify unexpected requests through an official source.
-      </div>
-
-    </div>
-
-  `);
+  showRiskResult(
+    "MESSAGE ANALYSIS",
+    score,
+    warnings
+  );
 
 }
 
@@ -217,29 +214,33 @@ function checkMessage() {
 
 function checkLink() {
 
-  const url = prompt(
-    "Paste the website link you want to check:"
-  );
+  const input =
+    prompt(
+      "Paste the website URL you want VARUMIZU to analyze:"
+    );
 
-  if (!url) return;
+
+  if (!input) return;
 
 
-  let risk = 0;
+  let score = 0;
+
   let warnings = [];
 
 
   try {
 
-    const parsed =
-      new URL(url);
-
-    const hostname =
-      parsed.hostname.toLowerCase();
+    const url =
+      new URL(input);
 
 
-    if (parsed.protocol !== "https:") {
+    const host =
+      url.hostname.toLowerCase();
 
-      risk += 25;
+
+    if (url.protocol !== "https:") {
+
+      score += 30;
 
       warnings.push(
         "The website is not using HTTPS."
@@ -249,25 +250,39 @@ function checkLink() {
 
 
     if (
-      hostname.includes("login") ||
-      hostname.includes("verify") ||
-      hostname.includes("secure")
+      input.length > 150
     ) {
 
-      risk += 10;
+      score += 15;
 
       warnings.push(
-        "The domain uses security-related words."
+        "The URL is unusually long."
       );
 
     }
 
 
     if (
-      hostname.split(".").length > 3
+      host.includes("login") ||
+      host.includes("verify") ||
+      host.includes("secure") ||
+      host.includes("account")
     ) {
 
-      risk += 15;
+      score += 10;
+
+      warnings.push(
+        "The domain contains security-related words."
+      );
+
+    }
+
+
+    if (
+      host.split(".").length > 3
+    ) {
+
+      score += 15;
 
       warnings.push(
         "The domain contains multiple subdomains."
@@ -277,50 +292,100 @@ function checkLink() {
 
 
     if (
-      url.includes("@") ||
-      url.includes("%") ||
-      url.length > 150
+      input.includes("@")
     ) {
 
-      risk += 20;
+      score += 25;
 
       warnings.push(
-        "The URL has unusual formatting."
+        "The URL contains an @ symbol."
       );
 
     }
 
 
-  } catch (error) {
+    if (
+      /[^\x00-\x7F]/.test(host)
+    ) {
 
-    risk = 100;
+      score += 20;
+
+      warnings.push(
+        "The domain contains unusual characters."
+      );
+
+    }
+
+
+  } catch {
+
+    score = 100;
 
     warnings.push(
-      "The entered value does not appear to be a valid URL."
+      "This does not appear to be a valid website URL."
     );
 
   }
 
 
-  risk = Math.min(risk, 100);
+  score =
+    Math.min(score, 100);
 
 
-  let level = "LOW RISK";
-  let levelClass = "safeText";
+  showRiskResult(
+    "LINK ANALYSIS",
+    score,
+    warnings
+  );
+
+}
 
 
-  if (risk >= 30 && risk < 60) {
+/* =====================================================
+   RISK RESULT
+===================================================== */
 
-    level = "MEDIUM RISK";
-    levelClass = "warningText";
+function showRiskResult(
+  title,
+  score,
+  warnings
+) {
+
+
+  let level;
+
+  let badgeClass;
+
+  let barClass;
+
+
+  if (score < 30) {
+
+    level = "LOW RISK";
+
+    badgeClass = "riskLow";
+
+    barClass = "riskLowBar";
 
   }
 
+  else if (score < 60) {
 
-  if (risk >= 60) {
+    level = "MEDIUM RISK";
+
+    badgeClass = "riskMedium";
+
+    barClass = "riskMediumBar";
+
+  }
+
+  else {
 
     level = "HIGH RISK";
-    levelClass = "dangerText";
+
+    badgeClass = "riskHigh";
+
+    barClass = "riskHighBar";
 
   }
 
@@ -331,20 +396,28 @@ function checkLink() {
   if (warnings.length === 0) {
 
     warningHTML = `
-      <div class="scanLine">
-        No obvious URL warning signs were detected.
-        This does not guarantee that the website is safe.
+
+      <div class="warningItem">
+        ✓ No common warning indicators were detected.
       </div>
+
     `;
 
-  } else {
+  }
+
+  else {
 
     warnings.forEach(function (warning) {
 
       warningHTML += `
-        <div class="scanLine">
-          ⚠ ${escapeHTML(warning)}
+
+        <div class="warningItem">
+          ⚠️
+          <span>
+            ${escapeHTML(warning)}
+          </span>
         </div>
+
       `;
 
     });
@@ -352,53 +425,107 @@ function checkLink() {
   }
 
 
-  showResult(`
+  const advice =
+    score >= 60
 
-    <div class="warningBox">
+      ? "Do not click links, share personal information or make payments until you independently verify the request."
 
-      <div class="scanTitle">
-        LINK ANALYSIS
-      </div>
+      : score >= 30
 
-      <div class="scanLine">
-        Risk Level:
-        <span class="${levelClass}">
-          ${level}
-        </span>
-      </div>
+        ? "Pause before responding. Verify the sender and request through an official channel."
 
-      <div class="scanLine">
-        Risk Score:
-        <strong>${risk}/100</strong>
-      </div>
+        : "No obvious warning indicators were detected, but always verify unexpected requests."
 
-      ${warningHTML}
-
-      <div class="scanLine">
-        <strong>Safety advice:</strong>
-        Do not enter passwords, OTPs or payment details
-        on suspicious websites.
-      </div>
-
-    </div>
-
-  `);
-
-}
-
-
-/* =====================================================
-   RESULT DISPLAY
-===================================================== */
-
-function showResult(html) {
 
   const result =
     document.getElementById("result");
 
-  if (!result) return;
 
-  result.innerHTML = html;
+  result.innerHTML = `
+
+    <div class="resultCard">
+
+      <div class="resultHeader">
+
+        <div class="resultTitle">
+          ${title}
+        </div>
+
+        <div class="riskBadge ${badgeClass}">
+          ${level}
+        </div>
+
+      </div>
+
+
+      <div class="scoreText">
+
+        <span>
+          RISK SCORE
+        </span>
+
+        <strong>
+          ${score}/100
+        </strong>
+
+      </div>
+
+
+      <div class="riskMeter">
+
+        <div
+          class="riskProgress ${barClass}"
+          id="riskProgress"
+        ></div>
+
+      </div>
+
+
+      <div class="warningList">
+
+        ${warningHTML}
+
+      </div>
+
+
+      <div class="adviceBox">
+
+        <strong>Recommended action</strong>
+
+        <br>
+
+        ${advice}
+
+      </div>
+
+
+      <div class="smallNote">
+
+        This is a prototype risk assessment based on
+        detectable indicators. It does not guarantee
+        that a message or website is safe or fraudulent.
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  setTimeout(function () {
+
+    const progress =
+      document.getElementById("riskProgress");
+
+    if (progress) {
+
+      progress.style.width =
+        score + "%";
+
+    }
+
+  }, 100);
+
 
   result.scrollIntoView({
     behavior: "smooth",
@@ -414,26 +541,19 @@ function showResult(html) {
 
 function openGmailSecurity() {
 
+  closePanels();
+
   const panel =
     document.getElementById("gmailSecurity");
 
-  const footprint =
-    document.getElementById("digitalFootprint");
+  panel.style.display =
+    "block";
 
-  if (footprint) {
-    footprint.style.display = "none";
-  }
 
-  if (panel) {
-
-    panel.style.display = "block";
-
-    panel.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-
-  }
+  panel.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
 
 }
 
@@ -447,9 +567,6 @@ function scanGmail() {
     document.getElementById("gmailScan");
 
 
-  if (!input || !output) return;
-
-
   const email =
     input.value.trim();
 
@@ -457,9 +574,11 @@ function scanGmail() {
   if (!email) {
 
     output.innerHTML = `
-      <div class="scanLine dangerText">
-        Please enter your Gmail address.
+
+      <div class="warningItem">
+        ⚠️ Please enter your Gmail address.
       </div>
+
     `;
 
     return;
@@ -467,36 +586,29 @@ function scanGmail() {
   }
 
 
-  const emailPattern =
+  const pattern =
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
-  if (!emailPattern.test(email)) {
+  if (!pattern.test(email)) {
 
     output.innerHTML = `
-      <div class="scanLine dangerText">
-        Please enter a valid email address.
+
+      <div class="warningItem">
+        ⚠️ Please enter a valid email address.
       </div>
+
     `;
 
     return;
 
   }
-
-
-  const masked =
-    maskEmail(email);
 
 
   output.innerHTML = `
 
-    <div class="scanLine">
-      Account:
-      <strong>${escapeHTML(masked)}</strong>
-    </div>
-
     <div class="checkItem">
-      ✓ Use a unique password for your email.
+      ✓ Use a unique password.
     </div>
 
     <div class="checkItem">
@@ -515,6 +627,11 @@ function scanGmail() {
       ✓ Never share OTP or recovery codes.
     </div>
 
+    <div class="smallNote">
+      Account checked:
+      ${escapeHTML(maskEmail(email))}
+    </div>
+
   `;
 
 }
@@ -525,12 +642,15 @@ function maskEmail(email) {
   const parts =
     email.split("@");
 
+
   if (parts.length !== 2) {
     return email;
   }
 
+
   const name =
     parts[0];
+
 
   if (name.length <= 2) {
 
@@ -540,11 +660,15 @@ function maskEmail(email) {
 
   }
 
+
   return (
     name.substring(0, 2)
     +
     "*".repeat(
-      Math.max(2, name.length - 2)
+      Math.max(
+        2,
+        name.length - 2
+      )
     )
     +
     "@"
@@ -561,30 +685,23 @@ function maskEmail(email) {
 
 function openDigitalFootprint() {
 
+  closePanels();
+
   const panel =
     document.getElementById("digitalFootprint");
 
-  const gmail =
-    document.getElementById("gmailSecurity");
+
+  panel.style.display =
+    "block";
 
 
-  if (gmail) {
-    gmail.style.display = "none";
-  }
+  loadServices();
 
 
-  if (panel) {
-
-    panel.style.display = "block";
-
-    loadServices();
-
-    panel.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-
-  }
+  panel.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
 
 }
 
@@ -593,9 +710,6 @@ function addService() {
 
   const input =
     document.getElementById("serviceInput");
-
-
-  if (!input) return;
 
 
   const service =
@@ -607,17 +721,25 @@ function addService() {
 
   let services =
     JSON.parse(
-      localStorage.getItem("varumizuServices")
-      || "[]"
+      localStorage.getItem(
+        "varumizuServices"
+      ) || "[]"
     );
 
 
-  if (
-    services.some(
-      item =>
-        item.toLowerCase() === service.toLowerCase()
-    )
-  ) {
+  const exists =
+    services.some(function (item) {
+
+      return (
+        item.toLowerCase()
+        ===
+        service.toLowerCase()
+      );
+
+    });
+
+
+  if (exists) {
 
     input.value = "";
 
@@ -651,19 +773,22 @@ function loadServices() {
   if (!list) return;
 
 
-  let services =
+  const services =
     JSON.parse(
-      localStorage.getItem("varumizuServices")
-      || "[]"
+      localStorage.getItem(
+        "varumizuServices"
+      ) || "[]"
     );
 
 
   if (services.length === 0) {
 
     list.innerHTML = `
+
       <div class="emptyFootprint">
         No services added yet.
       </div>
+
     `;
 
     return;
@@ -674,34 +799,37 @@ function loadServices() {
   list.innerHTML = "";
 
 
-  services.forEach(function (service, index) {
+  services.forEach(
+    function (service, index) {
 
-    const item =
-      document.createElement("div");
-
-    item.className =
-      "serviceItem";
+      const item =
+        document.createElement("div");
 
 
-    item.innerHTML = `
-
-      <span>
-        ${escapeHTML(service)}
-      </span>
-
-      <button
-        class="deleteButton"
-        onclick="removeService(${index})"
-      >
-        REMOVE
-      </button>
-
-    `;
+      item.className =
+        "serviceItem";
 
 
-    list.appendChild(item);
+      item.innerHTML = `
 
-  });
+        <span>
+          ${escapeHTML(service)}
+        </span>
+
+        <button
+          class="deleteButton"
+          onclick="removeService(${index})"
+        >
+          REMOVE
+        </button>
+
+      `;
+
+
+      list.appendChild(item);
+
+    }
+  );
 
 }
 
@@ -710,8 +838,9 @@ function removeService(index) {
 
   let services =
     JSON.parse(
-      localStorage.getItem("varumizuServices")
-      || "[]"
+      localStorage.getItem(
+        "varumizuServices"
+      ) || "[]"
     );
 
 
@@ -735,88 +864,196 @@ function removeService(index) {
 
 function showTips() {
 
-  showResult(`
+  closePanels();
 
-    <div class="warningBox">
 
-      <div class="scanTitle">
+  const result =
+    document.getElementById("result");
+
+
+  result.innerHTML = `
+
+    <div class="resultCard">
+
+      <div class="resultTitle">
         SAFETY CENTER
       </div>
 
-      <div class="scanLine">
-        🛡 Never share OTP, PIN, password or recovery codes.
-      </div>
 
-      <div class="scanLine">
-        🔗 Avoid opening unexpected links.
-      </div>
+      <div class="warningList">
 
-      <div class="scanLine">
-        📞 Verify suspicious calls using an official number.
-      </div>
+        <div class="warningItem">
+          🛡️
+          <span>
+            Never share OTP, PIN, password or recovery codes.
+          </span>
+        </div>
 
-      <div class="scanLine">
-        💳 Never make a payment because someone creates urgency.
-      </div>
+        <div class="warningItem">
+          🔗
+          <span>
+            Avoid unexpected links and attachments.
+          </span>
+        </div>
 
-      <div class="scanLine">
-        🔐 Enable two-factor authentication wherever possible.
-      </div>
+        <div class="warningItem">
+          📞
+          <span>
+            Verify suspicious calls using an official contact number.
+          </span>
+        </div>
 
-      <div class="scanLine">
-        📱 Keep your phone and important apps updated.
+        <div class="warningItem">
+          💳
+          <span>
+            Do not make payments because someone creates urgency.
+          </span>
+        </div>
+
+        <div class="warningItem">
+          🔐
+          <span>
+            Enable two-step verification where available.
+          </span>
+        </div>
+
+        <div class="warningItem">
+          📱
+          <span>
+            Keep your phone, browser and important apps updated.
+          </span>
+        </div>
+
       </div>
 
     </div>
 
-  `);
+  `;
+
+
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
 
 }
 
 
 /* =====================================================
-   ACCOUNT EMERGENCY
+   EMERGENCY
 ===================================================== */
 
 function emergencyGuide() {
 
-  showResult(`
+  closePanels();
 
-    <div class="warningBox">
 
-      <div class="scanTitle">
-        ACCOUNT EMERGENCY
+  const result =
+    document.getElementById("result");
+
+
+  result.innerHTML = `
+
+    <div class="resultCard">
+
+      <div class="resultHeader">
+
+        <div class="resultTitle">
+          ACCOUNT EMERGENCY
+        </div>
+
+        <div class="riskBadge riskHigh">
+          ACT CAREFULLY
+        </div>
+
       </div>
 
-      <div class="scanLine">
-        1. Stop communicating with the suspicious person.
-      </div>
 
-      <div class="scanLine">
-        2. Do not share any additional information.
-      </div>
+      <div class="warningList">
 
-      <div class="scanLine">
-        3. Change passwords for affected accounts.
-      </div>
+        <div class="warningItem">
+          <b>1.</b>
+          <span>
+            Stop communicating with the suspicious person.
+          </span>
+        </div>
 
-      <div class="scanLine">
-        4. Contact your bank or service provider through
-        an official channel if financial information was involved.
-      </div>
+        <div class="warningItem">
+          <b>2.</b>
+          <span>
+            Do not share additional information.
+          </span>
+        </div>
 
-      <div class="scanLine">
-        5. Save relevant messages, emails and transaction details.
-      </div>
+        <div class="warningItem">
+          <b>3.</b>
+          <span>
+            Change passwords for affected accounts.
+          </span>
+        </div>
 
-      <div class="scanLine">
-        6. Report the incident through the appropriate
-        official cybercrime or service channel.
+        <div class="warningItem">
+          <b>4.</b>
+          <span>
+            Contact your bank or service provider through
+            an official channel if financial information was involved.
+          </span>
+        </div>
+
+        <div class="warningItem">
+          <b>5.</b>
+          <span>
+            Save relevant messages, emails and transaction details.
+          </span>
+        </div>
+
+        <div class="warningItem">
+          <b>6.</b>
+          <span>
+            Report the incident through the appropriate
+            official channel.
+          </span>
+        </div>
+
       </div>
 
     </div>
 
-  `);
+  `;
+
+
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+
+/* =====================================================
+   CLOSE PANELS
+===================================================== */
+
+function closePanels() {
+
+  const gmail =
+    document.getElementById(
+      "gmailSecurity"
+    );
+
+  const footprint =
+    document.getElementById(
+      "digitalFootprint"
+    );
+
+
+  if (gmail) {
+    gmail.style.display = "none";
+  }
+
+  if (footprint) {
+    footprint.style.display = "none";
+  }
 
 }
 
@@ -828,10 +1065,15 @@ function emergencyGuide() {
 function escapeHTML(value) {
 
   return String(value)
+
     .replace(/&/g, "&amp;")
+
     .replace(/</g, "&lt;")
+
     .replace(/>/g, "&gt;")
+
     .replace(/"/g, "&quot;")
+
     .replace(/'/g, "&#039;");
 
 }
@@ -848,7 +1090,8 @@ document.addEventListener(
     if (
       event.key === "Enter" &&
       document.activeElement &&
-      document.activeElement.id === "serviceInput"
+      document.activeElement.id
+        === "serviceInput"
     ) {
 
       addService();
