@@ -1,58 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SurakshaSaathi</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <meta name="description"
+          content="SurakshaSaathi - Digital Safety Assistant for Senior Citizens">
+
+    <title>SurakshaSaathi | Digital Safety</title>
+
+    <!-- Cyber Security CSS -->
+    <link rel="stylesheet" href="style.css?v=2">
+
 </head>
+
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <header>
-            <h1>SurakshaSaathi</h1>
-            <p>Digital Safety Assistant for Senior Citizens</p>
-        </header>
 
-        <main>
+    <!-- ============================= -->
+    <!-- HEADER -->
+    <!-- ============================= -->
 
-            <h2>Stay Safe from Digital Scams</h2>
+    <header>
 
-            <p class="intro">
-                Check suspicious messages and links before taking action.
+        <h1>SurakshaSaathi</h1>
+
+        <p>
+            Digital Safety Assistant for Senior Citizens
+        </p>
+
+    </header>
+
+
+
+    <!-- ============================= -->
+    <!-- MAIN -->
+    <!-- ============================= -->
+
+    <main>
+
+        <h2>
+            Stay Safe from Digital Scams
+        </h2>
+
+        <p class="intro">
+            Check suspicious messages and links
+            before taking action.
+        </p>
+
+
+
+        <!-- ============================= -->
+        <!-- ACTION BUTTONS -->
+        <!-- ============================= -->
+
+        <div class="buttons">
+
+            <button onclick="checkMessage()">
+                🔍 Check a Message
+            </button>
+
+
+            <button onclick="checkLink()">
+                🔗 Check a Link
+            </button>
+
+
+            <button onclick="showTips()">
+                📖 Safety Tips
+            </button>
+
+        </div>
+
+
+
+        <!-- ============================= -->
+        <!-- RESULT / ANALYSIS PANEL -->
+        <!-- ============================= -->
+
+        <div id="result">
+
+            <h3>
+                🛡️ Security Scanner Ready
+            </h3>
+
+            <p>
+                Choose an option above to begin
+                a safety check.
             </p>
 
-            <div class="buttons">
+        </div>
 
-                <button onclick="checkMessage()">
-                    🔍 Check a Message
-                </button>
+    </main>
 
-                <button onclick="checkLink()">
-                    🔗 Check a Link
-                </button>
 
-                <button onclick="showTips()">
-                    📖 Safety Tips
-                </button>
 
-            </div>
+    <!-- ============================= -->
+    <!-- FOOTER -->
+    <!-- ============================= -->
 
-            <div id="result"></div>
+    <footer>
 
-        </main>
+        <p>
+            SURAKSHASAATHI // DIGITAL SAFETY
+        </p>
 
-        <footer>
-            <p>SurakshaSaathi © 2026</p>
-        </footer>
+        <p>
+            © 2026 SurakshaSaathi
+        </p>
 
-    </div>
+    </footer>
 
-    <script src="script.js"></script>
+
+</div>
+
+
+<!-- ============================= -->
+<!-- JAVASCRIPT -->
+<!-- ============================= -->
+
+<script src="script.js?v=2"></script>
+
 
 </body>
+
 </html>
