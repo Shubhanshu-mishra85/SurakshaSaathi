@@ -1,401 +1,1106 @@
-/* =========================================
-   SECURITY PANELS
-========================================= */
+/* =====================================================
+   VARUMIZU
+   DIGITAL SAFETY ASSISTANT
+   RESPONSIVE CSS
+===================================================== */
 
-.securityPanel {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    display: none;
+html {
+  scroll-behavior: smooth;
+}
 
-    margin-top: 30px;
+body {
+  min-height: 100vh;
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
 
-    padding: 25px;
+  background:
+    radial-gradient(circle at top, #102d4a 0%, #06111d 42%, #02070d 100%);
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(5, 24, 38, 0.98),
-            rgba(2, 11, 18, 0.98)
-        );
-
-    border:
-        1px solid
-        rgba(0, 229, 255, 0.25);
-
-    border-radius: 16px;
-
-    box-shadow:
-        0 0 25px
-        rgba(0, 229, 255, 0.06);
+  color: #ffffff;
+  overflow-x: hidden;
 }
 
 
-.securityPanel.active {
+/* =====================================================
+   LOADER
+===================================================== */
 
-    display: block;
+#varumizuLoader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
 
-    animation:
-        panelOpen
-        0.4s
-        ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(circle at center, #123a59 0%, #061522 45%, #02070d 100%);
+
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+}
+
+#varumizuLoader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loaderContent {
+  width: min(90%, 600px);
+  text-align: center;
+  position: relative;
 }
 
 
-.panelTitle {
+/* Water drop */
 
-    color:
-        #00e5ff;
+.waterDrop {
+  width: 55px;
+  height: 75px;
 
-    font-size: 22px;
+  margin: 0 auto 10px;
 
-    font-weight: bold;
+  position: relative;
 
-    letter-spacing: 1px;
+  border-radius: 60% 60% 65% 65% / 70% 70% 45% 45%;
 
-    margin-bottom: 12px;
+  background: linear-gradient(
+    180deg,
+    #9ce9ff,
+    #1ca8e8 55%,
+    #0878b5
+  );
+
+  transform: rotate(45deg);
+
+  animation: dropFloat 1.8s infinite ease-in-out;
+
+  box-shadow:
+    0 0 30px rgba(38, 190, 255, 0.7);
+}
+
+.waterDrop span {
+  position: absolute;
+
+  width: 14px;
+  height: 22px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.6);
+
+  top: 12px;
+  left: 12px;
 }
 
 
-.panelText {
+@keyframes dropFloat {
 
-    color:
-        #829aaa;
+  0%,
+  100% {
+    transform: rotate(45deg) translateY(0);
+  }
 
-    font-size: 13px;
+  50% {
+    transform: rotate(45deg) translateY(-12px);
+  }
 
-    line-height: 1.7;
-
-    margin-bottom: 20px;
 }
 
 
-.securityInput {
+/* Waterfall */
 
+.waterfall {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+
+  height: 85px;
+
+  margin-top: -5px;
+}
+
+.waterfall span {
+  display: block;
+
+  width: 5px;
+
+  height: 70px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    to bottom,
+    #a9efff,
+    #159bd9,
+    transparent
+  );
+
+  animation: waterfall 1.1s infinite ease-in;
+}
+
+.waterfall span:nth-child(2) {
+  animation-delay: .15s;
+}
+
+.waterfall span:nth-child(3) {
+  animation-delay: .3s;
+}
+
+.waterfall span:nth-child(4) {
+  animation-delay: .45s;
+}
+
+.waterfall span:nth-child(5) {
+  animation-delay: .6s;
+}
+
+@keyframes waterfall {
+
+  0% {
+    transform: translateY(-15px);
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+
+}
+
+
+/* Red leaf */
+
+.redLeaf {
+  font-size: 40px;
+
+  margin-top: -15px;
+
+  animation:
+    leafFall 2.5s ease-in-out infinite;
+}
+
+@keyframes leafFall {
+
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(30px) rotate(80deg);
+    opacity: 0;
+  }
+
+}
+
+
+/* Logo */
+
+.introLogo {
+  display: block;
+
+  width: min(260px, 70vw);
+  max-height: 220px;
+
+  object-fit: contain;
+
+  margin: 5px auto 5px;
+
+  filter:
+    drop-shadow(0 0 25px rgba(42, 190, 255, .35));
+
+  animation: logoAppear 1.2s ease;
+}
+
+@keyframes logoAppear {
+
+  from {
+    opacity: 0;
+    transform: scale(.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+.loaderName {
+  font-size: clamp(28px, 7vw, 48px);
+
+  font-weight: 800;
+
+  letter-spacing: 8px;
+
+  color: #ffffff;
+}
+
+.loaderTagline {
+  margin-top: 8px;
+
+  font-size: 11px;
+
+  letter-spacing: 4px;
+
+  color: #65cfff;
+}
+
+.loadingText {
+  margin-top: 35px;
+
+  font-size: 11px;
+
+  letter-spacing: 2px;
+
+  color: #9db4c7;
+}
+
+.loadingBar {
+  width: min(320px, 75vw);
+
+  height: 3px;
+
+  margin: 12px auto 0;
+
+  overflow: hidden;
+
+  background: rgba(255,255,255,.12);
+
+  border-radius: 20px;
+}
+
+.loadingProgress {
+  width: 0%;
+  height: 100%;
+
+  background: #36c5ff;
+
+  animation: loading 1.7s ease forwards;
+}
+
+@keyframes loading {
+
+  to {
     width: 100%;
+  }
 
-    padding: 16px;
-
-    background:
-        #02080d;
-
-    border:
-        1px solid
-        rgba(0, 229, 255, 0.3);
-
-    border-radius: 10px;
-
-    color: #ffffff;
-
-    outline: none;
-
-    font-family:
-        "Courier New",
-        monospace;
-
-    font-size: 15px;
 }
 
 
-.securityInput:focus {
+/* =====================================================
+   MAIN WEBSITE
+===================================================== */
 
-    border-color:
-        #00e5ff;
+#mainWebsite {
+  display: none;
 
-    box-shadow:
-        0 0 15px
-        rgba(0, 229, 255, 0.15);
+  min-height: 100vh;
+}
+
+#mainWebsite.show {
+  display: block;
+
+  animation: websiteAppear .8s ease;
+}
+
+@keyframes websiteAppear {
+
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
 }
 
 
-.scanButton {
+/* =====================================================
+   HEADER
+===================================================== */
 
-    width: 100%;
+header {
+  width: 100%;
 
-    margin-top: 15px;
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
 
-    min-height: 55px;
+  background:
+    rgba(3, 12, 21, .72);
 
-    background:
-        linear-gradient(
-            90deg,
-            #005eff,
-            #00bfff
-        );
+  backdrop-filter: blur(18px);
 
-    color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-    border: none;
+.topBar {
+  width: min(1180px, 92%);
 
-    border-radius: 10px;
+  min-height: 70px;
 
-    font-weight: bold;
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-size: 20px;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+.brandDot {
+  display: inline-block;
+
+  width: 8px;
+  height: 8px;
+
+  margin-right: 8px;
+
+  border-radius: 50%;
+
+  background: #38d6ff;
+
+  box-shadow:
+    0 0 15px #38d6ff;
+}
+
+.systemStatus {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 11px;
+
+  letter-spacing: 1.5px;
+
+  color: #76d7ff;
+}
+
+.systemStatus span {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #4cff9b;
+
+  box-shadow:
+    0 0 12px #4cff9b;
+
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+
+  50% {
+    opacity: .35;
+  }
+
 }
 
 
-.scanButton:hover {
+/* =====================================================
+   CONTAINER
+===================================================== */
 
-    box-shadow:
-        0 0 25px
-        rgba(0, 207, 255, 0.4);
+.container {
+  width: min(1180px, 92%);
+
+  margin: auto;
 }
 
 
-/* =========================================
-   GMAIL RESULT
-========================================= */
+/* =====================================================
+   HERO
+===================================================== */
 
-.gmailScan {
+.hero {
+  text-align: center;
 
-    margin-top: 22px;
+  padding:
+    clamp(70px, 12vw, 130px)
+    0
+    45px;
+}
 
-    padding: 20px;
+.heroBadge {
+  display: inline-block;
 
-    border:
-        1px solid
-        rgba(0, 255, 157, 0.2);
+  padding: 8px 14px;
 
-    border-radius: 12px;
+  border:
+    1px solid rgba(67, 200, 255, .3);
 
-    background:
-        rgba(0, 255, 157, 0.025);
+  border-radius: 100px;
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  color: #5fd5ff;
+
+  background:
+    rgba(26, 157, 220, .08);
+}
+
+h1 {
+  margin-top: 22px;
+
+  font-size:
+    clamp(38px, 7vw, 78px);
+
+  line-height: 1.05;
+
+  letter-spacing: -3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #7bdcff
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.intro {
+  width: min(700px, 100%);
+
+  margin: 25px auto 0;
+
+  font-size:
+    clamp(14px, 2vw, 18px);
+
+  line-height: 1.8;
+
+  color: #9eb4c5;
 }
 
 
-.scanTitle {
+/* =====================================================
+   BUTTONS
+===================================================== */
 
-    color:
-        #00ff9d;
+.buttons {
+  display: grid;
 
-    font-weight: bold;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
 
-    margin-bottom: 10px;
+  gap: 16px;
+
+  padding-bottom: 30px;
+}
+
+.buttons button {
+  min-height: 105px;
+
+  padding: 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  text-align: left;
+
+  color: white;
+
+  border:
+    1px solid rgba(255,255,255,.09);
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20,50,73,.7),
+      rgba(5,16,27,.9)
+    );
+
+  cursor: pointer;
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
+}
+
+.buttons button:hover {
+  transform: translateY(-5px);
+
+  border-color:
+    rgba(65,204,255,.5);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(24,69,98,.8),
+      rgba(5,18,30,.95)
+    );
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.3),
+    0 0 25px rgba(35,178,240,.08);
+}
+
+.buttonIcon {
+  min-width: 48px;
+  height: 48px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background:
+    rgba(42,185,240,.1);
+
+  border:
+    1px solid rgba(42,185,240,.2);
+
+  font-size: 20px;
+}
+
+.buttons b {
+  display: block;
+
+  font-size: 15px;
+
+  margin-bottom: 5px;
+}
+
+.buttons small {
+  color: #8098a9;
+
+  font-size: 11px;
+
+  line-height: 1.5;
 }
 
 
-.scanLine {
+/* =====================================================
+   RESULT
+===================================================== */
 
-    color:
-        #00ff9d;
-
-    overflow: hidden;
-
-    margin-bottom: 20px;
+#result {
+  margin: 20px 0;
 }
-
-
-.safeText {
-
-    color:
-        #00ff9d;
-
-    font-weight: bold;
-}
-
-
-.checkItem {
-
-    padding: 9px 0;
-
-    color:
-        #b9d3df;
-}
-
-
-.smallNote {
-
-    color:
-        #71899b;
-
-    font-size: 11px;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================
-   WARNING
-========================================= */
 
 .warningBox {
+  padding: 24px;
 
-    margin-top: 18px;
+  border-radius: 18px;
 
-    padding: 15px;
+  border:
+    1px solid rgba(255,255,255,.08);
 
-    border:
-        1px solid
-        rgba(255, 59, 92, 0.4);
+  background:
+    rgba(8,22,35,.85);
 
-    border-radius: 10px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.25);
+}
 
-    color:
-        #ff6b82;
+.scanTitle {
+  font-size: 18px;
 
-    background:
-        rgba(255, 59, 92, 0.05);
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 18px;
+}
+
+.scanLine {
+  padding: 12px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.06);
+
+  color: #b9cbd6;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+.safeText {
+  color: #63f5a0;
+
+  font-weight: 700;
+}
+
+.warningText {
+  color: #ffca63;
+
+  font-weight: 700;
+}
+
+.dangerText {
+  color: #ff7272;
+
+  font-weight: 700;
 }
 
 
-/* =========================================
+/* =====================================================
+   SECURITY PANELS
+===================================================== */
+
+.securityPanel {
+  margin: 25px 0;
+
+  padding: clamp(22px, 4vw, 35px);
+
+  border-radius: 22px;
+
+  border:
+    1px solid rgba(74,190,240,.18);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11,34,51,.95),
+      rgba(4,14,24,.96)
+    );
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.25);
+}
+
+.panelTitle {
+  font-size: 18px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+
+  color: #65d7ff;
+}
+
+.panelText {
+  margin: 12px 0 20px;
+
+  color: #91a9b8;
+
+  line-height: 1.7;
+
+  font-size: 14px;
+}
+
+.securityInput {
+  width: 100%;
+
+  min-height: 52px;
+
+  padding: 0 16px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  outline: none;
+
+  border-radius: 12px;
+
+  background:
+    rgba(0,0,0,.25);
+
+  color: white;
+
+  font-size: 14px;
+}
+
+.securityInput::placeholder {
+  color: #627887;
+}
+
+.securityInput:focus {
+  border-color: #31bde9;
+
+  box-shadow:
+    0 0 0 3px rgba(49,189,233,.08);
+}
+
+.scanButton,
+.addButton {
+  border: none;
+
+  cursor: pointer;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  transition: .2s ease;
+}
+
+.scanButton {
+  width: 100%;
+
+  min-height: 50px;
+
+  margin-top: 12px;
+
+  border-radius: 12px;
+
+  color: #00111b;
+
+  background: #54d5ff;
+}
+
+.scanButton:hover,
+.addButton:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.08);
+}
+
+.smallNote {
+  margin-top: 18px;
+
+  color: #667f8f;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+/* Gmail checklist */
+
+.gmailScan {
+  margin-top: 20px;
+}
+
+.checkItem {
+  display: flex;
+
+  gap: 10px;
+
+  padding: 13px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.06);
+
+  color: #b5c8d4;
+
+  font-size: 13px;
+}
+
+
+/* =====================================================
    DIGITAL FOOTPRINT
-========================================= */
+===================================================== */
 
 .footprintInputRow {
+  display: flex;
 
-    display: flex;
-
-    gap: 10px;
+  gap: 10px;
 }
 
-
-.footprintInputRow
-.securityInput {
-
-    flex: 1;
+.footprintInputRow .securityInput {
+  flex: 1;
 }
-
 
 .addButton {
+  padding: 0 22px;
 
-    width: 90px;
+  border-radius: 12px;
 
-    min-height: 50px;
+  background: #54d5ff;
 
-    background:
-        rgba(0, 255, 157, 0.08);
-
-    border:
-        1px solid
-        rgba(0, 255, 157, 0.3);
-
-    color:
-        #00ff9d;
+  color: #00111b;
 }
-
 
 .footprintHeader {
+  margin-top: 25px;
+  margin-bottom: 10px;
 
-    display: flex;
+  font-size: 11px;
 
-    justify-content: space-between;
+  letter-spacing: 2px;
 
-    margin-top: 25px;
-
-    padding: 12px;
-
-    color:
-        #00e5ff;
-
-    border-bottom:
-        1px solid
-        rgba(0, 229, 255, 0.15);
-
-    font-size: 12px;
+  color: #688697;
 }
-
 
 .serviceItem {
+  display: flex;
 
-    display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    align-items: center;
+  gap: 15px;
 
-    justify-content: space-between;
+  padding: 14px 16px;
 
-    margin-top: 10px;
+  margin-top: 8px;
 
-    padding: 14px;
+  border-radius: 12px;
 
-    background:
-        rgba(0, 229, 255, 0.035);
+  background:
+    rgba(255,255,255,.035);
 
-    border:
-        1px solid
-        rgba(0, 229, 255, 0.1);
+  border:
+    1px solid rgba(255,255,255,.06);
 
-    border-radius: 9px;
+  color: #d9e5ec;
 
-    color:
-        #c9dbe5;
+  font-size: 14px;
 }
-
 
 .deleteButton {
+  border: none;
 
-    width: 35px;
+  cursor: pointer;
 
-    min-height: 35px;
+  color: #ff7474;
 
-    padding: 0;
+  background: transparent;
 
-    color:
-        #ff4f70;
-
-    border:
-        1px solid
-        rgba(255, 59, 92, 0.25);
-
-    background:
-        rgba(255, 59, 92, 0.05);
+  font-size: 12px;
 }
-
 
 .emptyFootprint {
+  padding: 18px;
 
-    margin-top: 20px;
+  border-radius: 12px;
 
-    padding: 25px;
+  color: #718999;
 
-    text-align: center;
+  background:
+    rgba(255,255,255,.025);
 
-    color:
-        #71899b;
+  text-align: center;
 
-    border:
-        1px dashed
-        rgba(0, 229, 255, 0.15);
-
-    border-radius: 10px;
-
-    line-height: 1.6;
+  font-size: 13px;
 }
 
 
-@keyframes panelOpen {
+/* =====================================================
+   FOOTER
+===================================================== */
 
-    from {
+footer {
+  margin-top: 80px;
 
-        opacity: 0;
+  padding:
+    45px 0
+    35px;
 
-        transform:
-            translateY(15px);
-    }
+  text-align: center;
 
-    to {
+  border-top:
+    1px solid rgba(255,255,255,.07);
+}
 
-        opacity: 1;
+.footerLogo {
+  font-weight: 800;
 
-        transform:
-            translateY(0);
-    }
+  letter-spacing: 5px;
+
+  font-size: 18px;
+}
+
+footer p {
+  margin-top: 10px;
+
+  color: #849cab;
+
+  font-size: 12px;
+}
+
+footer span {
+  display: block;
+
+  margin-top: 12px;
+
+  color: #526a79;
+
+  font-size: 10px;
 }
 
 
-@media (max-width: 600px) {
+/* =====================================================
+   MOBILE
+===================================================== */
 
-    .footprintInputRow {
+@media (max-width: 800px) {
 
-        flex-direction: column;
-    }
+  .buttons {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  h1 {
+    letter-spacing: -2px;
+  }
+
+}
 
 
-    .addButton {
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
 
-        width: 100%;
-    }
+@media (max-width: 560px) {
+
+  .container {
+    width: 90%;
+  }
+
+  .topBar {
+    min-height: 62px;
+  }
+
+  .brand {
+    font-size: 16px;
+
+    letter-spacing: 2px;
+  }
+
+  .systemStatus {
+    font-size: 9px;
+
+    letter-spacing: 1px;
+  }
+
+  .hero {
+    padding-top: 65px;
+  }
+
+  h1 {
+    font-size: 42px;
+
+    line-height: 1.08;
+  }
+
+  .intro {
+    font-size: 14px;
+
+    line-height: 1.7;
+  }
+
+  .buttons {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+  .buttons button {
+    min-height: 90px;
+  }
+
+  .securityPanel {
+    padding: 20px;
+  }
+
+  .footprintInputRow {
+    flex-direction: column;
+  }
+
+  .addButton {
+    min-height: 50px;
+  }
+
+  .loaderTagline {
+    font-size: 8px;
+
+    letter-spacing: 2px;
+  }
+
+}
 
 
-    .securityPanel {
+/* =====================================================
+   VERY SMALL DEVICES
+===================================================== */
 
-        padding: 18px;
-    }
+@media (max-width: 360px) {
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .buttons button {
+    padding: 15px;
+  }
+
+  .buttonIcon {
+    min-width: 42px;
+    height: 42px;
+  }
+
+}
+
+
+/* =====================================================
+   LANDSCAPE PHONES
+===================================================== */
+
+@media
+(max-height: 500px)
+and (orientation: landscape) {
+
+  .hero {
+    padding:
+      50px 0 30px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .introLogo {
+    width: 150px;
+    max-height: 120px;
+  }
+
+  .waterfall {
+    height: 45px;
+  }
+
 }
