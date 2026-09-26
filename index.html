@@ -2,212 +2,238 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-          content="VARUMIZU - Water, Wisdom, Sustainability">
+        content="VARUMIZU - Digital Safety and Account Protection Assistant">
 
-    <title>VARUMIZU</title>
+    <title>VARUMIZU | Digital Safety</title>
 
-    <link rel="stylesheet" href="style.css?v=5">
-
+    <link rel="stylesheet" href="style.css?v=6">
 </head>
-
 
 <body>
 
-
-<!-- =====================================
-     VARUMIZU INTRO LOADER
-===================================== -->
+<!-- ================= LOADER ================= -->
 
 <div id="varumizuLoader">
 
     <div class="loaderContent">
 
-        <!-- WATER DROP -->
-        <div class="waterDrop">
-            💧
-        </div>
+        <div class="waterDrop">💧</div>
 
-
-        <!-- WATERFALL -->
         <div class="waterfall">
-
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-
         </div>
 
+        <div class="waterSplash">~~~~~</div>
 
-        <!-- WATER SPLASH -->
-        <div class="waterSplash">
-            ~~~~~
-        </div>
+        <div class="redLeaf">🍁</div>
 
-
-        <!-- RED LEAF -->
-        <div class="redLeaf">
-            🍁
-        </div>
-
-
-        <!-- LOGO -->
         <img
             src="varumizu-logo.png"
             class="introLogo"
             alt="VARUMIZU Logo"
         >
 
-
-        <div class="loaderName">
-            VARUMIZU
-        </div>
-
+        <div class="loaderName">VARUMIZU</div>
 
         <div class="loaderTagline">
             WATER • WISDOM • SUSTAINABILITY
         </div>
 
-
         <div class="loadingText">
-            INITIALIZING WATER SYSTEM
+            INITIALIZING SECURITY SYSTEM
             <span>...</span>
         </div>
 
-
         <div class="loadingBar">
-
             <div class="loadingProgress"></div>
-
         </div>
 
     </div>
-
 </div>
 
 
-
-<!-- =====================================
-     MAIN WEBSITE
-===================================== -->
+<!-- ================= MAIN WEBSITE ================= -->
 
 <div id="mainWebsite">
 
+<div class="container">
 
-    <div class="container">
+<header>
 
+    <div class="systemStatus">
+        ● SYSTEM ONLINE
+    </div>
 
-        <!-- HEADER -->
+    <h1>VARUMIZU</h1>
 
-        <header>
+    <p>
+        Digital Safety • Privacy • Protection
+    </p>
 
-            <div class="systemStatus">
-                ● SYSTEM ONLINE
-            </div>
-
-            <h1>
-                VARUMIZU
-            </h1>
-
-            <p>
-                Water • Wisdom • Sustainability
-            </p>
-
-        </header>
+</header>
 
 
+<main>
 
-        <!-- MAIN -->
+    <h2>
+        Digital Security Center
+    </h2>
 
-        <main>
-
-            <h2>
-                Digital Safety Assistant
-            </h2>
-
-            <p class="intro">
-                Stay protected from suspicious messages,
-                links and digital scams.
-            </p>
+    <p class="intro">
+        Protect your messages, links and online accounts.
+    </p>
 
 
+    <!-- MAIN OPTIONS -->
 
-            <!-- BUTTONS -->
+    <div class="buttons">
 
-            <div class="buttons">
+        <button onclick="checkMessage()">
+            🔍 Check Message
+        </button>
 
-                <button onclick="checkMessage()">
-                    🔍 Check a Message
-                </button>
+        <button onclick="checkLink()">
+            🔗 Check Link
+        </button>
 
+        <button onclick="openGmailSecurity()">
+            📧 Gmail Security
+        </button>
 
-                <button onclick="checkLink()">
-                    🔗 Check a Link
-                </button>
+        <button onclick="openDigitalFootprint()">
+            🌐 Digital Footprint
+        </button>
 
+        <button onclick="showTips()">
+            🛡️ Safety Center
+        </button>
 
-                <button onclick="showTips()">
-                    🛡️ Safety Tips
-                </button>
-
-            </div>
-
-
-
-            <!-- RESULT -->
-
-            <div id="result">
-
-                <h3>
-                    🛡️ Security Scanner Ready
-                </h3>
-
-                <p>
-                    Choose an option above to begin
-                    a safety check.
-                </p>
-
-            </div>
-
-        </main>
-
-
-
-        <!-- FOOTER -->
-
-        <footer>
-
-            <p>
-                VARUMIZU // DIGITAL SAFETY
-            </p>
-
-            <p>
-                WATER • WISDOM • SUSTAINABILITY
-            </p>
-
-            <p>
-                © 2026 VARUMIZU
-            </p>
-
-        </footer>
-
+        <button onclick="emergencyGuide()">
+            🚨 Account Emergency
+        </button>
 
     </div>
+
+
+    <!-- RESULT -->
+
+    <div id="result">
+
+        <h3>
+            🛡️ Security Center Ready
+        </h3>
+
+        <p>
+            Select a security tool above to begin.
+        </p>
+
+    </div>
+
+
+    <!-- ================= GMAIL SECURITY ================= -->
+
+    <section id="gmailPanel" class="securityPanel">
+
+        <div class="panelTitle">
+            🔐 GMAIL SECURITY CHECK
+        </div>
+
+        <p class="panelText">
+            Enter only your email address.
+            Never enter your password or OTP.
+        </p>
+
+        <input
+            type="email"
+            id="gmailInput"
+            class="securityInput"
+            placeholder="example@gmail.com"
+            autocomplete="off"
+        >
+
+        <button
+            class="scanButton"
+            onclick="scanGmail()"
+        >
+            ⚡ CHECK EMAIL SECURITY
+        </button>
+
+        <div id="gmailResult"></div>
+
+    </section>
+
+
+    <!-- ================= DIGITAL FOOTPRINT ================= -->
+
+    <section id="footprintPanel" class="securityPanel">
+
+        <div class="panelTitle">
+            🌐 MY DIGITAL FOOTPRINT
+        </div>
+
+        <p class="panelText">
+            Add the websites and services where you use
+            this email. VARUMIZU stores this checklist
+            only in this browser.
+        </p>
+
+        <div class="footprintInputRow">
+
+            <input
+                type="text"
+                id="serviceInput"
+                class="securityInput"
+                placeholder="e.g. GitHub, Instagram..."
+                autocomplete="off"
+            >
+
+            <button
+                class="addButton"
+                onclick="addService()"
+            >
+                + ADD
+            </button>
+
+        </div>
+
+        <div id="serviceList"></div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        VARUMIZU // DIGITAL SAFETY SYSTEM
+    </p>
+
+    <p>
+        Your password, OTP and private credentials
+        are never required.
+    </p>
+
+    <p>
+        © 2026 VARUMIZU
+    </p>
+
+</footer>
+
+</div>
 
 </div>
 
 
-
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 
 </body>
-
 </html>
