@@ -1,239 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-        content="VARUMIZU - Digital Safety and Account Protection Assistant">
+  <title>VARUMIZU — Digital Safety Assistant</title>
 
-    <title>VARUMIZU | Digital Safety</title>
-
-    <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="./style.css?v=8">
 </head>
 
 <body>
 
-<!-- ================= LOADER ================= -->
-
-<div id="varumizuLoader">
+  <!-- ================= LOADER ================= -->
+  <div id="varumizuLoader">
 
     <div class="loaderContent">
 
-        <div class="waterDrop">💧</div>
+      <div class="waterDrop">
+        <span></span>
+      </div>
 
-        <div class="waterfall">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+      <div class="waterfall">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
-        <div class="waterSplash">~~~~~</div>
+      <div class="waterSplash"></div>
 
-        <div class="redLeaf">🍁</div>
+      <div class="redLeaf">🍁</div>
 
-        <img
-            src="varumizu-logo.png"
-            class="introLogo"
-            alt="VARUMIZU Logo"
-        >
+      <img
+        src="./varumizu-logo.png"
+        class="introLogo"
+        alt="VARUMIZU Logo"
+      >
 
-        <div class="loaderName">VARUMIZU</div>
+      <div class="loaderName">VARUMIZU</div>
 
-        <div class="loaderTagline">
-            WATER • WISDOM • SUSTAINABILITY
-        </div>
+      <div class="loaderTagline">
+        WATER • WISDOM • SUSTAINABILITY
+      </div>
 
-        <div class="loadingText">
-            INITIALIZING SECURITY SYSTEM
-            <span>...</span>
-        </div>
+      <div class="loadingText">
+        INITIALIZING DIGITAL SAFETY...
+      </div>
 
-        <div class="loadingBar">
-            <div class="loadingProgress"></div>
-        </div>
+      <div class="loadingBar">
+        <div class="loadingProgress"></div>
+      </div>
 
     </div>
-</div>
+
+  </div>
 
 
-<!-- ================= MAIN WEBSITE ================= -->
+  <!-- ================= MAIN WEBSITE ================= -->
+  <div id="mainWebsite">
 
-<div id="mainWebsite">
+    <header>
 
-<div class="container">
+      <div class="topBar">
 
-<header>
+        <div class="brand">
+          <span class="brandDot"></span>
+          VARUMIZU
+        </div>
 
-    <div class="systemStatus">
-        ● SYSTEM ONLINE
-    </div>
+        <div class="systemStatus">
+          <span></span>
+          SYSTEM ONLINE
+        </div>
 
-    <h1>VARUMIZU</h1>
+      </div>
 
-    <p>
-        Digital Safety • Privacy • Protection
-    </p>
-
-</header>
-
-
-<main>
-
-    <h2>
-        Digital Security Center
-    </h2>
-
-    <p class="intro">
-        Protect your messages, links and online accounts.
-    </p>
+    </header>
 
 
-    <!-- MAIN OPTIONS -->
+    <main class="container">
 
-    <div class="buttons">
+      <!-- HERO -->
+      <section class="hero">
+
+        <div class="heroBadge">
+          DIGITAL SAFETY SYSTEM
+        </div>
+
+        <h1>
+          Protect Your Digital World.
+        </h1>
+
+        <p class="intro">
+          A simple digital safety assistant designed to help
+          users identify suspicious messages, links and common
+          online security risks.
+        </p>
+
+      </section>
+
+
+      <!-- ACTION BUTTONS -->
+      <section class="buttons">
 
         <button onclick="checkMessage()">
-            🔍 Check Message
+          <span class="buttonIcon">✉</span>
+          <span>
+            <b>Check Message</b>
+            <small>Detect suspicious messages</small>
+          </span>
         </button>
 
         <button onclick="checkLink()">
-            🔗 Check Link
+          <span class="buttonIcon">🔗</span>
+          <span>
+            <b>Check Link</b>
+            <small>Analyze a website URL</small>
+          </span>
         </button>
 
         <button onclick="openGmailSecurity()">
-            📧 Gmail Security
+          <span class="buttonIcon">🛡</span>
+          <span>
+            <b>Gmail Security</b>
+            <small>Review email safety</small>
+          </span>
         </button>
 
         <button onclick="openDigitalFootprint()">
-            🌐 Digital Footprint
+          <span class="buttonIcon">◎</span>
+          <span>
+            <b>Digital Footprint</b>
+            <small>Manage online accounts</small>
+          </span>
         </button>
 
         <button onclick="showTips()">
-            🛡️ Safety Center
+          <span class="buttonIcon">💡</span>
+          <span>
+            <b>Safety Center</b>
+            <small>Learn digital safety</small>
+          </span>
         </button>
 
         <button onclick="emergencyGuide()">
-            🚨 Account Emergency
+          <span class="buttonIcon">🚨</span>
+          <span>
+            <b>Account Emergency</b>
+            <small>What to do after a scam</small>
+          </span>
         </button>
 
-    </div>
+      </section>
 
 
-    <!-- RESULT -->
-
-    <div id="result">
-
-        <h3>
-            🛡️ Security Center Ready
-        </h3>
-
-        <p>
-            Select a security tool above to begin.
-        </p>
-
-    </div>
+      <!-- RESULT -->
+      <section id="result"></section>
 
 
-    <!-- ================= GMAIL SECURITY ================= -->
-
-    <section id="gmailPanel" class="securityPanel">
+      <!-- GMAIL SECURITY -->
+      <section
+        id="gmailSecurity"
+        class="securityPanel"
+        style="display:none;"
+      >
 
         <div class="panelTitle">
-            🔐 GMAIL SECURITY CHECK
+          GMAIL SECURITY
         </div>
 
         <p class="panelText">
-            Enter only your email address.
-            Never enter your password or OTP.
+          Enter your Gmail address to perform a basic
+          security checklist.
         </p>
 
         <input
-            type="email"
-            id="gmailInput"
-            class="securityInput"
-            placeholder="example@gmail.com"
-            autocomplete="off"
+          type="email"
+          id="gmailInput"
+          class="securityInput"
+          placeholder="example@gmail.com"
+          autocomplete="off"
         >
 
         <button
-            class="scanButton"
-            onclick="scanGmail()"
+          class="scanButton"
+          onclick="scanGmail()"
         >
-            ⚡ CHECK EMAIL SECURITY
+          SCAN EMAIL
         </button>
 
-        <div id="gmailResult"></div>
+        <div id="gmailScan"></div>
 
-    </section>
+        <p class="smallNote">
+          VARUMIZU never asks for your password, OTP or
+          recovery code.
+        </p>
+
+      </section>
 
 
-    <!-- ================= DIGITAL FOOTPRINT ================= -->
-
-    <section id="footprintPanel" class="securityPanel">
+      <!-- DIGITAL FOOTPRINT -->
+      <section
+        id="digitalFootprint"
+        class="securityPanel"
+        style="display:none;"
+      >
 
         <div class="panelTitle">
-            🌐 MY DIGITAL FOOTPRINT
+          DIGITAL FOOTPRINT
         </div>
 
         <p class="panelText">
-            Add the websites and services where you use
-            this email. VARUMIZU stores this checklist
-            only in this browser.
+          Add the online services where you have an account.
+          Your list is stored only in this browser.
         </p>
 
         <div class="footprintInputRow">
 
-            <input
-                type="text"
-                id="serviceInput"
-                class="securityInput"
-                placeholder="e.g. GitHub, Instagram..."
-                autocomplete="off"
-            >
+          <input
+            type="text"
+            id="serviceInput"
+            class="securityInput"
+            placeholder="Example: Instagram"
+          >
 
-            <button
-                class="addButton"
-                onclick="addService()"
-            >
-                + ADD
-            </button>
+          <button
+            class="addButton"
+            onclick="addService()"
+          >
+            ADD
+          </button>
 
+        </div>
+
+        <div class="footprintHeader">
+          YOUR SERVICES
         </div>
 
         <div id="serviceList"></div>
 
-    </section>
+        <p class="smallNote">
+          This prototype does not automatically search the
+          internet for accounts connected to your email.
+        </p>
 
-</main>
-
-
-<footer>
-
-    <p>
-        VARUMIZU // DIGITAL SAFETY SYSTEM
-    </p>
-
-    <p>
-        Your password, OTP and private credentials
-        are never required.
-    </p>
-
-    <p>
-        © 2026 VARUMIZU
-    </p>
-
-</footer>
-
-</div>
-
-</div>
+      </section>
 
 
-<script src="script.js?v=6"></script>
+      <!-- FOOTER -->
+      <footer>
+
+        <div class="footerLogo">
+          VARUMIZU
+        </div>
+
+        <p>
+          Digital Safety • Privacy • Protection
+        </p>
+
+        <span>
+          Prototype for social innovation
+        </span>
+
+      </footer>
+
+    </main>
+
+  </div>
+
+
+  <script src="./script.js?v=8"></script>
 
 </body>
 </html>
