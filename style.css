@@ -1,13 +1,20 @@
-/* =====================================================
-   VARUMIZU
-   DIGITAL SAFETY ASSISTANT
-   RESPONSIVE CSS
-===================================================== */
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --bg: #02080f;
+  --panel: #071723;
+  --panel2: #0a2232;
+  --blue: #43d4ff;
+  --blue2: #178bc4;
+  --text: #ffffff;
+  --muted: #8ca4b4;
+  --green: #55f5a0;
+  --yellow: #ffd166;
+  --red: #ff6565;
 }
 
 html {
@@ -16,17 +23,23 @@ html {
 
 body {
   min-height: 100vh;
+  overflow-x: hidden;
+
   font-family:
     Inter,
     Arial,
     Helvetica,
     sans-serif;
 
-  background:
-    radial-gradient(circle at top, #102d4a 0%, #06111d 42%, #02070d 100%);
+  color: var(--text);
 
-  color: #ffffff;
-  overflow-x: hidden;
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      #124667 0%,
+      #061623 35%,
+      #02080f 75%
+    );
 }
 
 
@@ -37,18 +50,23 @@ body {
 #varumizuLoader {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 99999;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   background:
-    radial-gradient(circle at center, #123a59 0%, #061522 45%, #02070d 100%);
+    radial-gradient(
+      circle,
+      #123c5b,
+      #061522 50%,
+      #02070d
+    );
 
   transition:
-    opacity 0.8s ease,
-    visibility 0.8s ease;
+    opacity .8s ease,
+    visibility .8s ease;
 }
 
 #varumizuLoader.hide {
@@ -60,95 +78,83 @@ body {
 .loaderContent {
   width: min(90%, 600px);
   text-align: center;
-  position: relative;
 }
 
-
-/* Water drop */
-
 .waterDrop {
-  width: 55px;
-  height: 75px;
+  width: 52px;
+  height: 72px;
 
-  margin: 0 auto 10px;
+  margin: auto;
 
-  position: relative;
+  border-radius:
+    60% 60% 65% 65% /
+    70% 70% 45% 45%;
 
-  border-radius: 60% 60% 65% 65% / 70% 70% 45% 45%;
-
-  background: linear-gradient(
-    180deg,
-    #9ce9ff,
-    #1ca8e8 55%,
-    #0878b5
-  );
+  background:
+    linear-gradient(
+      180deg,
+      #b5f2ff,
+      #22b5ee,
+      #0878b5
+    );
 
   transform: rotate(45deg);
 
-  animation: dropFloat 1.8s infinite ease-in-out;
-
   box-shadow:
-    0 0 30px rgba(38, 190, 255, 0.7);
+    0 0 35px rgba(50,200,255,.7);
+
+  animation:
+    dropFloat 1.7s infinite;
 }
 
 .waterDrop span {
   position: absolute;
 
-  width: 14px;
-  height: 22px;
-
-  border-radius: 50%;
-
-  background: rgba(255,255,255,0.6);
+  width: 13px;
+  height: 21px;
 
   top: 12px;
   left: 12px;
-}
 
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.65);
+}
 
 @keyframes dropFloat {
 
-  0%,
-  100% {
-    transform: rotate(45deg) translateY(0);
-  }
-
   50% {
-    transform: rotate(45deg) translateY(-12px);
+    transform:
+      rotate(45deg)
+      translateY(-12px);
   }
 
 }
-
-
-/* Waterfall */
 
 .waterfall {
   display: flex;
   justify-content: center;
   gap: 6px;
 
-  height: 85px;
-
-  margin-top: -5px;
+  height: 75px;
 }
 
 .waterfall span {
-  display: block;
-
   width: 5px;
-
   height: 70px;
 
   border-radius: 20px;
 
-  background: linear-gradient(
-    to bottom,
-    #a9efff,
-    #159bd9,
-    transparent
-  );
+  background:
+    linear-gradient(
+      #a7efff,
+      #179bd8,
+      transparent
+    );
 
-  animation: waterfall 1.1s infinite ease-in;
+  animation:
+    waterFall 1s infinite;
 }
 
 .waterfall span:nth-child(2) {
@@ -167,10 +173,10 @@ body {
   animation-delay: .6s;
 }
 
-@keyframes waterfall {
+@keyframes waterFall {
 
-  0% {
-    transform: translateY(-15px);
+  from {
+    transform: translateY(-20px);
     opacity: 0;
   }
 
@@ -178,105 +184,88 @@ body {
     opacity: 1;
   }
 
-  100% {
-    transform: translateY(50px);
+  to {
+    transform: translateY(45px);
     opacity: 0;
   }
 
 }
 
-
-/* Red leaf */
-
 .redLeaf {
-  font-size: 40px;
+  font-size: 38px;
 
   margin-top: -15px;
 
   animation:
-    leafFall 2.5s ease-in-out infinite;
+    leafMove 2s infinite;
 }
 
-@keyframes leafFall {
+@keyframes leafMove {
 
-  0% {
-    transform: translateY(-20px) rotate(0deg);
+  from {
+    transform:
+      translateY(-20px)
+      rotate(0);
     opacity: 0;
   }
 
-  35% {
+  40% {
     opacity: 1;
   }
 
-  100% {
-    transform: translateY(30px) rotate(80deg);
+  to {
+    transform:
+      translateY(25px)
+      rotate(70deg);
     opacity: 0;
   }
 
 }
-
-
-/* Logo */
 
 .introLogo {
   display: block;
 
-  width: min(260px, 70vw);
-  max-height: 220px;
+  width: min(240px, 70vw);
+  max-height: 200px;
+
+  margin: 5px auto;
 
   object-fit: contain;
 
-  margin: 5px auto 5px;
-
   filter:
-    drop-shadow(0 0 25px rgba(42, 190, 255, .35));
-
-  animation: logoAppear 1.2s ease;
+    drop-shadow(
+      0 0 25px
+      rgba(40,190,255,.4)
+    );
 }
-
-@keyframes logoAppear {
-
-  from {
-    opacity: 0;
-    transform: scale(.85);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-}
-
 
 .loaderName {
-  font-size: clamp(28px, 7vw, 48px);
+  font-size:
+    clamp(30px, 8vw, 50px);
 
-  font-weight: 800;
+  font-weight: 900;
 
   letter-spacing: 8px;
-
-  color: #ffffff;
 }
 
 .loaderTagline {
-  margin-top: 8px;
+  margin-top: 7px;
 
-  font-size: 11px;
+  font-size: 10px;
 
   letter-spacing: 4px;
 
-  color: #65cfff;
+  color: #63d8ff;
 }
 
 .loadingText {
-  margin-top: 35px;
+  margin-top: 32px;
 
-  font-size: 11px;
+  font-size: 10px;
 
   letter-spacing: 2px;
 
-  color: #9db4c7;
+  color: #91aaba;
 }
 
 .loadingBar {
@@ -284,50 +273,49 @@ body {
 
   height: 3px;
 
-  margin: 12px auto 0;
+  margin: 12px auto;
+
+  background:
+    rgba(255,255,255,.12);
+
+  border-radius: 10px;
 
   overflow: hidden;
-
-  background: rgba(255,255,255,.12);
-
-  border-radius: 20px;
 }
 
 .loadingProgress {
-  width: 0%;
   height: 100%;
+  width: 0;
 
-  background: #36c5ff;
+  background: var(--blue);
 
-  animation: loading 1.7s ease forwards;
+  animation:
+    loading 1.7s forwards;
 }
 
 @keyframes loading {
-
   to {
     width: 100%;
   }
-
 }
 
 
 /* =====================================================
-   MAIN WEBSITE
+   MAIN
 ===================================================== */
 
 #mainWebsite {
   display: none;
-
-  min-height: 100vh;
 }
 
 #mainWebsite.show {
   display: block;
 
-  animation: websiteAppear .8s ease;
+  animation:
+    pageAppear .8s ease;
 }
 
-@keyframes websiteAppear {
+@keyframes pageAppear {
 
   from {
     opacity: 0;
@@ -347,24 +335,22 @@ body {
 ===================================================== */
 
 header {
-  width: 100%;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.08);
-
-  background:
-    rgba(3, 12, 21, .72);
-
-  backdrop-filter: blur(18px);
-
   position: sticky;
   top: 0;
   z-index: 100;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.07);
+
+  background:
+    rgba(2,9,16,.75);
+
+  backdrop-filter:
+    blur(18px);
 }
 
 .topBar {
   width: min(1180px, 92%);
-
   min-height: 70px;
 
   margin: auto;
@@ -377,8 +363,7 @@ header {
 
 .brand {
   font-size: 20px;
-
-  font-weight: 800;
+  font-weight: 900;
 
   letter-spacing: 3px;
 }
@@ -393,23 +378,32 @@ header {
 
   border-radius: 50%;
 
-  background: #38d6ff;
+  background: var(--blue);
 
   box-shadow:
-    0 0 15px #38d6ff;
+    0 0 15px var(--blue);
+}
+
+.headerRight {
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
 }
 
 .systemStatus {
   display: flex;
+
   align-items: center;
 
   gap: 8px;
 
-  font-size: 11px;
+  color: #75dbff;
+
+  font-size: 10px;
 
   letter-spacing: 1.5px;
-
-  color: #76d7ff;
 }
 
 .systemStatus span {
@@ -418,20 +412,37 @@ header {
 
   border-radius: 50%;
 
-  background: #4cff9b;
+  background: var(--green);
 
   box-shadow:
-    0 0 12px #4cff9b;
+    0 0 12px var(--green);
 
-  animation: blink 1.5s infinite;
+  animation:
+    blink 1.5s infinite;
 }
 
 @keyframes blink {
-
   50% {
-    opacity: .35;
+    opacity: .3;
   }
+}
 
+.elderlyToggle {
+  padding: 8px 12px;
+
+  border:
+    1px solid rgba(67,212,255,.25);
+
+  border-radius: 8px;
+
+  background:
+    rgba(67,212,255,.06);
+
+  color: #77dfff;
+
+  font-size: 10px;
+
+  cursor: pointer;
 }
 
 
@@ -451,49 +462,49 @@ header {
 ===================================================== */
 
 .hero {
-  text-align: center;
-
   padding:
     clamp(70px, 12vw, 130px)
     0
-    45px;
+    55px;
+
+  text-align: center;
 }
 
 .heroBadge {
   display: inline-block;
 
-  padding: 8px 14px;
+  padding: 8px 15px;
 
   border:
-    1px solid rgba(67, 200, 255, .3);
+    1px solid rgba(67,212,255,.25);
 
   border-radius: 100px;
+
+  color: #67d9ff;
+
+  background:
+    rgba(67,212,255,.06);
 
   font-size: 10px;
 
   letter-spacing: 2px;
-
-  color: #5fd5ff;
-
-  background:
-    rgba(26, 157, 220, .08);
 }
 
 h1 {
-  margin-top: 22px;
+  margin-top: 20px;
 
   font-size:
-    clamp(38px, 7vw, 78px);
+    clamp(43px, 7vw, 80px);
 
-  line-height: 1.05;
+  line-height: 1;
 
-  letter-spacing: -3px;
+  letter-spacing: -4px;
 
   background:
     linear-gradient(
       90deg,
-      #ffffff,
-      #7bdcff
+      #fff,
+      #6edaff
     );
 
   -webkit-background-clip: text;
@@ -505,14 +516,120 @@ h1 {
 .intro {
   width: min(700px, 100%);
 
-  margin: 25px auto 0;
+  margin: 25px auto;
 
-  font-size:
-    clamp(14px, 2vw, 18px);
+  color: var(--muted);
 
   line-height: 1.8;
 
-  color: #9eb4c5;
+  font-size: 16px;
+}
+
+.trustRow {
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+.trustRow span {
+  padding: 8px 12px;
+
+  border:
+    1px solid rgba(255,255,255,.07);
+
+  border-radius: 50px;
+
+  color: #89a2b2;
+
+  background:
+    rgba(255,255,255,.025);
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard {
+  padding: 25px;
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  border-radius: 25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12,36,53,.8),
+      rgba(3,13,22,.9)
+    );
+
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.25);
+}
+
+.dashboardTop {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 22px;
+}
+
+.miniLabel {
+  margin-bottom: 7px;
+
+  color: #5dcfff;
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+}
+
+.dashboard h2 {
+  font-size:
+    clamp(20px, 3vw, 28px);
+}
+
+.statusOrb {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid rgba(85,245,160,.2);
+
+  border-radius: 50%;
+
+  background:
+    rgba(85,245,160,.04);
+}
+
+.statusOrb span {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 20px var(--green);
+
+  animation:
+    blink 1.2s infinite;
 }
 
 
@@ -526,99 +643,103 @@ h1 {
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  gap: 16px;
-
-  padding-bottom: 30px;
+  gap: 13px;
 }
 
 .buttons button {
-  min-height: 105px;
+  position: relative;
 
-  padding: 20px;
+  min-height: 110px;
+
+  padding: 18px;
 
   display: flex;
 
   align-items: center;
 
-  gap: 16px;
+  gap: 14px;
 
   text-align: left;
 
   color: white;
 
   border:
-    1px solid rgba(255,255,255,.09);
+    1px solid rgba(255,255,255,.07);
 
-  border-radius: 18px;
+  border-radius: 17px;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(20,50,73,.7),
-      rgba(5,16,27,.9)
-    );
+    rgba(5,18,29,.8);
 
   cursor: pointer;
 
   transition:
-    transform .25s ease,
-    border-color .25s ease,
-    background .25s ease,
-    box-shadow .25s ease;
+    .25s ease;
 }
 
 .buttons button:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
 
   border-color:
-    rgba(65,204,255,.5);
+    rgba(67,212,255,.35);
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(24,69,98,.8),
-      rgba(5,18,30,.95)
-    );
+    rgba(13,45,65,.8);
 
   box-shadow:
-    0 15px 40px rgba(0,0,0,.3),
-    0 0 25px rgba(35,178,240,.08);
+    0 15px 40px rgba(0,0,0,.25);
 }
 
 .buttonIcon {
-  min-width: 48px;
-  height: 48px;
+  min-width: 47px;
+  height: 47px;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  border-radius: 14px;
+  border-radius: 13px;
 
   background:
-    rgba(42,185,240,.1);
+    rgba(67,212,255,.08);
 
   border:
-    1px solid rgba(42,185,240,.2);
+    1px solid rgba(67,212,255,.12);
 
   font-size: 20px;
+}
+
+.buttonContent {
+  flex: 1;
 }
 
 .buttons b {
   display: block;
 
-  font-size: 15px;
+  font-size: 14px;
 
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .buttons small {
-  color: #8098a9;
+  color: #718b9c;
 
-  font-size: 11px;
+  font-size: 10px;
+}
 
-  line-height: 1.5;
+.arrow {
+  color: #4ebfe9;
+
+  font-size: 20px;
+}
+
+.emergencyIcon {
+  background:
+    rgba(255,80,80,.08);
+
+  border-color:
+    rgba(255,80,80,.15);
 }
 
 
@@ -627,196 +748,160 @@ h1 {
 ===================================================== */
 
 #result {
-  margin: 20px 0;
+  margin-top: 20px;
 }
 
-.warningBox {
-  padding: 24px;
+.resultCard {
+  padding: 25px;
 
-  border-radius: 18px;
+  border-radius: 22px;
 
   border:
     1px solid rgba(255,255,255,.08);
 
   background:
-    rgba(8,22,35,.85);
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.25);
-}
-
-.scanTitle {
-  font-size: 18px;
-
-  font-weight: 800;
-
-  letter-spacing: 1px;
-
-  margin-bottom: 18px;
-}
-
-.scanLine {
-  padding: 12px 0;
-
-  border-bottom:
-    1px solid rgba(255,255,255,.06);
-
-  color: #b9cbd6;
-
-  font-size: 14px;
-
-  line-height: 1.6;
-}
-
-.safeText {
-  color: #63f5a0;
-
-  font-weight: 700;
-}
-
-.warningText {
-  color: #ffca63;
-
-  font-weight: 700;
-}
-
-.dangerText {
-  color: #ff7272;
-
-  font-weight: 700;
-}
-
-
-/* =====================================================
-   SECURITY PANELS
-===================================================== */
-
-.securityPanel {
-  margin: 25px 0;
-
-  padding: clamp(22px, 4vw, 35px);
-
-  border-radius: 22px;
-
-  border:
-    1px solid rgba(74,190,240,.18);
-
-  background:
     linear-gradient(
       145deg,
-      rgba(11,34,51,.95),
-      rgba(4,14,24,.96)
+      #091e2c,
+      #040d16
     );
 
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.25);
+  animation:
+    resultAppear .5s ease;
 }
 
-.panelTitle {
-  font-size: 18px;
+@keyframes resultAppear {
 
-  font-weight: 800;
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
 
-  letter-spacing: 2px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-  color: #65d7ff;
 }
 
-.panelText {
-  margin: 12px 0 20px;
+.resultHeader {
+  display: flex;
 
-  color: #91a9b8;
+  justify-content: space-between;
 
-  line-height: 1.7;
+  align-items: center;
 
-  font-size: 14px;
+  gap: 15px;
+
+  margin-bottom: 20px;
 }
 
-.securityInput {
-  width: 100%;
-
-  min-height: 52px;
-
-  padding: 0 16px;
-
-  border:
-    1px solid rgba(255,255,255,.1);
-
-  outline: none;
-
-  border-radius: 12px;
-
-  background:
-    rgba(0,0,0,.25);
-
-  color: white;
-
-  font-size: 14px;
-}
-
-.securityInput::placeholder {
-  color: #627887;
-}
-
-.securityInput:focus {
-  border-color: #31bde9;
-
-  box-shadow:
-    0 0 0 3px rgba(49,189,233,.08);
-}
-
-.scanButton,
-.addButton {
-  border: none;
-
-  cursor: pointer;
-
+.resultTitle {
   font-weight: 800;
 
   letter-spacing: 1px;
-
-  transition: .2s ease;
 }
 
-.scanButton {
-  width: 100%;
+.riskBadge {
+  padding: 7px 12px;
 
-  min-height: 50px;
+  border-radius: 100px;
 
-  margin-top: 12px;
+  font-size: 10px;
 
-  border-radius: 12px;
-
-  color: #00111b;
-
-  background: #54d5ff;
+  font-weight: 800;
 }
 
-.scanButton:hover,
-.addButton:hover {
-  transform: translateY(-2px);
+.riskLow {
+  color: var(--green);
 
-  filter: brightness(1.08);
+  background:
+    rgba(85,245,160,.08);
+
+  border:
+    1px solid rgba(85,245,160,.2);
 }
 
-.smallNote {
-  margin-top: 18px;
+.riskMedium {
+  color: var(--yellow);
 
-  color: #667f8f;
+  background:
+    rgba(255,209,102,.08);
+
+  border:
+    1px solid rgba(255,209,102,.2);
+}
+
+.riskHigh {
+  color: var(--red);
+
+  background:
+    rgba(255,101,101,.08);
+
+  border:
+    1px solid rgba(255,101,101,.2);
+}
+
+
+/* Risk meter */
+
+.riskMeter {
+  height: 13px;
+
+  margin: 18px 0;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,.06);
+}
+
+.riskProgress {
+  width: 0;
+
+  height: 100%;
+
+  border-radius: 20px;
+
+  transition:
+    width 1s ease;
+}
+
+.riskLowBar {
+  background: var(--green);
+}
+
+.riskMediumBar {
+  background: var(--yellow);
+}
+
+.riskHighBar {
+  background: var(--red);
+}
+
+.scoreText {
+  display: flex;
+
+  justify-content: space-between;
+
+  color: #8199a9;
 
   font-size: 11px;
-
-  line-height: 1.6;
 }
 
+.scoreText strong {
+  color: white;
 
-/* Gmail checklist */
+  font-size: 16px;
+}
 
-.gmailScan {
+.warningList {
   margin-top: 20px;
 }
 
-.checkItem {
+.warningItem {
   display: flex;
 
   gap: 10px;
@@ -829,11 +914,168 @@ h1 {
   color: #b5c8d4;
 
   font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.adviceBox {
+  margin-top: 20px;
+
+  padding: 17px;
+
+  border-radius: 13px;
+
+  background:
+    rgba(67,212,255,.045);
+
+  border:
+    1px solid rgba(67,212,255,.1);
+
+  color: #a9c0ce;
+
+  font-size: 12px;
+
+  line-height: 1.7;
 }
 
 
 /* =====================================================
-   DIGITAL FOOTPRINT
+   PANELS
+===================================================== */
+
+.securityPanel {
+  margin-top: 20px;
+
+  padding: clamp(20px, 4vw, 32px);
+
+  border:
+    1px solid rgba(67,212,255,.12);
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #091f2e,
+      #040d16
+    );
+}
+
+.panelHeader {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+}
+
+.panelTitle {
+  font-size: 22px;
+
+  font-weight: 800;
+}
+
+.closeButton {
+  width: 32px;
+  height: 32px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.04);
+
+  color: white;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.panelText {
+  margin: 15px 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+.securityInput {
+  width: 100%;
+
+  min-height: 52px;
+
+  padding: 0 15px;
+
+  outline: none;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  border-radius: 11px;
+
+  color: white;
+
+  background:
+    rgba(0,0,0,.25);
+}
+
+.securityInput:focus {
+  border-color: var(--blue);
+}
+
+.scanButton {
+  width: 100%;
+
+  min-height: 50px;
+
+  margin-top: 12px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: var(--blue);
+
+  color: #00111a;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.scanButton:hover {
+  filter: brightness(1.08);
+}
+
+.smallNote {
+  margin-top: 15px;
+
+  color: #637c8c;
+
+  font-size: 10px;
+
+  line-height: 1.6;
+}
+
+.checkItem {
+  padding: 13px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.06);
+
+  color: #b7cad5;
+
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   FOOTPRINT
 ===================================================== */
 
 .footprintInputRow {
@@ -847,24 +1089,30 @@ h1 {
 }
 
 .addButton {
-  padding: 0 22px;
+  padding: 0 23px;
 
-  border-radius: 12px;
+  border: none;
 
-  background: #54d5ff;
+  border-radius: 11px;
 
-  color: #00111b;
+  background: var(--blue);
+
+  color: #00111a;
+
+  font-weight: 900;
+
+  cursor: pointer;
 }
 
 .footprintHeader {
-  margin-top: 25px;
-  margin-bottom: 10px;
+  margin:
+    25px 0 10px;
 
-  font-size: 11px;
+  color: #678495;
+
+  font-size: 9px;
 
   letter-spacing: 2px;
-
-  color: #688697;
 }
 
 .serviceItem {
@@ -873,50 +1121,48 @@ h1 {
   align-items: center;
   justify-content: space-between;
 
-  gap: 15px;
-
-  padding: 14px 16px;
+  padding: 14px;
 
   margin-top: 8px;
-
-  border-radius: 12px;
-
-  background:
-    rgba(255,255,255,.035);
 
   border:
     1px solid rgba(255,255,255,.06);
 
-  color: #d9e5ec;
+  border-radius: 11px;
 
-  font-size: 14px;
+  background:
+    rgba(255,255,255,.025);
+
+  color: #d7e5ec;
+
+  font-size: 13px;
 }
 
 .deleteButton {
   border: none;
 
-  cursor: pointer;
-
-  color: #ff7474;
-
   background: transparent;
 
-  font-size: 12px;
+  color: #ff7777;
+
+  cursor: pointer;
+
+  font-size: 9px;
 }
 
 .emptyFootprint {
-  padding: 18px;
+  padding: 20px;
 
-  border-radius: 12px;
+  border-radius: 11px;
 
-  color: #718999;
+  text-align: center;
+
+  color: #718998;
 
   background:
     rgba(255,255,255,.025);
 
-  text-align: center;
-
-  font-size: 13px;
+  font-size: 12px;
 }
 
 
@@ -928,39 +1174,90 @@ footer {
   margin-top: 80px;
 
   padding:
-    45px 0
-    35px;
+    45px 0;
 
   text-align: center;
 
   border-top:
-    1px solid rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.06);
 }
 
 .footerLogo {
-  font-weight: 800;
+  font-size: 18px;
+
+  font-weight: 900;
 
   letter-spacing: 5px;
-
-  font-size: 18px;
 }
 
 footer p {
   margin-top: 10px;
 
-  color: #849cab;
+  color: #8198a7;
 
-  font-size: 12px;
+  font-size: 11px;
 }
 
 footer span {
   display: block;
 
-  margin-top: 12px;
+  margin-top: 10px;
 
-  color: #526a79;
+  color: #4f6877;
 
-  font-size: 10px;
+  font-size: 9px;
+}
+
+
+/* =====================================================
+   ELDERLY MODE
+===================================================== */
+
+body.elderlyMode {
+  font-size: 18px;
+}
+
+body.elderlyMode .buttons {
+  gap: 18px;
+}
+
+body.elderlyMode .buttons button {
+  min-height: 135px;
+}
+
+body.elderlyMode .buttons b {
+  font-size: 18px;
+}
+
+body.elderlyMode .buttons small {
+  font-size: 14px;
+}
+
+body.elderlyMode .buttonIcon {
+  min-width: 58px;
+  height: 58px;
+
+  font-size: 25px;
+}
+
+body.elderlyMode .panelText,
+body.elderlyMode .checkItem,
+body.elderlyMode .warningItem {
+  font-size: 16px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .buttons {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
 }
 
 
@@ -968,44 +1265,30 @@ footer span {
    MOBILE
 ===================================================== */
 
-@media (max-width: 800px) {
-
-  .buttons {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-  h1 {
-    letter-spacing: -2px;
-  }
-
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media (max-width: 560px) {
+@media (max-width: 600px) {
 
   .container {
-    width: 90%;
+    width: 91%;
   }
 
   .topBar {
     min-height: 62px;
   }
 
-  .brand {
-    font-size: 16px;
-
-    letter-spacing: 2px;
+  .headerRight {
+    gap: 8px;
   }
 
   .systemStatus {
-    font-size: 9px;
+    display: none;
+  }
 
-    letter-spacing: 1px;
+  .brand {
+    font-size: 16px;
+  }
+
+  .elderlyToggle {
+    font-size: 9px;
   }
 
   .hero {
@@ -1013,29 +1296,46 @@ footer span {
   }
 
   h1 {
-    font-size: 42px;
+    font-size: 43px;
 
-    line-height: 1.08;
+    letter-spacing: -2px;
   }
 
   .intro {
     font-size: 14px;
+  }
 
-    line-height: 1.7;
+  .trustRow {
+    gap: 6px;
+  }
+
+  .trustRow span {
+    font-size: 9px;
+  }
+
+  .dashboard {
+    padding: 17px;
+
+    border-radius: 19px;
+  }
+
+  .dashboardTop {
+    margin-bottom: 16px;
   }
 
   .buttons {
     grid-template-columns: 1fr;
 
-    gap: 12px;
+    gap: 10px;
   }
 
   .buttons button {
     min-height: 90px;
   }
 
-  .securityPanel {
-    padding: 20px;
+  .resultHeader {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .footprintInputRow {
@@ -1046,61 +1346,25 @@ footer span {
     min-height: 50px;
   }
 
-  .loaderTagline {
-    font-size: 8px;
-
-    letter-spacing: 2px;
-  }
-
 }
 
 
 /* =====================================================
-   VERY SMALL DEVICES
+   VERY SMALL
 ===================================================== */
 
 @media (max-width: 360px) {
 
   h1 {
-    font-size: 34px;
+    font-size: 36px;
+  }
+
+  .dashboard {
+    padding: 13px;
   }
 
   .buttons button {
-    padding: 15px;
-  }
-
-  .buttonIcon {
-    min-width: 42px;
-    height: 42px;
-  }
-
-}
-
-
-/* =====================================================
-   LANDSCAPE PHONES
-===================================================== */
-
-@media
-(max-height: 500px)
-and (orientation: landscape) {
-
-  .hero {
-    padding:
-      50px 0 30px;
-  }
-
-  .hero h1 {
-    font-size: 42px;
-  }
-
-  .introLogo {
-    width: 150px;
-    max-height: 120px;
-  }
-
-  .waterfall {
-    height: 45px;
+    padding: 14px;
   }
 
 }
