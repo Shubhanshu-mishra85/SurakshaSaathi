@@ -9,125 +9,204 @@
           content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-          content="SurakshaSaathi - Digital Safety Assistant for Senior Citizens">
+          content="VARUMIZU - Water, Wisdom, Sustainability">
 
-    <title>SurakshaSaathi | Digital Safety</title>
+    <title>VARUMIZU</title>
 
-    <!-- Cyber Security CSS -->
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=5">
 
 </head>
 
 
 <body>
 
-<div class="container">
+
+<!-- =====================================
+     VARUMIZU INTRO LOADER
+===================================== -->
+
+<div id="varumizuLoader">
+
+    <div class="loaderContent">
+
+        <!-- WATER DROP -->
+        <div class="waterDrop">
+            💧
+        </div>
 
 
-    <!-- ============================= -->
-    <!-- HEADER -->
-    <!-- ============================= -->
+        <!-- WATERFALL -->
+        <div class="waterfall">
 
-    <header>
-
-        <h1>SurakshaSaathi</h1>
-
-        <p>
-            Digital Safety Assistant for Senior Citizens
-        </p>
-
-    </header>
-
-
-
-    <!-- ============================= -->
-    <!-- MAIN -->
-    <!-- ============================= -->
-
-    <main>
-
-        <h2>
-            Stay Safe from Digital Scams
-        </h2>
-
-        <p class="intro">
-            Check suspicious messages and links
-            before taking action.
-        </p>
-
-
-
-        <!-- ============================= -->
-        <!-- ACTION BUTTONS -->
-        <!-- ============================= -->
-
-        <div class="buttons">
-
-            <button onclick="checkMessage()">
-                🔍 Check a Message
-            </button>
-
-
-            <button onclick="checkLink()">
-                🔗 Check a Link
-            </button>
-
-
-            <button onclick="showTips()">
-                📖 Safety Tips
-            </button>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
 
         </div>
 
 
+        <!-- WATER SPLASH -->
+        <div class="waterSplash">
+            ~~~~~
+        </div>
 
-        <!-- ============================= -->
-        <!-- RESULT / ANALYSIS PANEL -->
-        <!-- ============================= -->
 
-        <div id="result">
+        <!-- RED LEAF -->
+        <div class="redLeaf">
+            🍁
+        </div>
 
-            <h3>
-                🛡️ Security Scanner Ready
-            </h3>
 
-            <p>
-                Choose an option above to begin
-                a safety check.
-            </p>
+        <!-- LOGO -->
+        <img
+            src="varumizu-logo.png"
+            class="introLogo"
+            alt="VARUMIZU Logo"
+        >
+
+
+        <div class="loaderName">
+            VARUMIZU
+        </div>
+
+
+        <div class="loaderTagline">
+            WATER • WISDOM • SUSTAINABILITY
+        </div>
+
+
+        <div class="loadingText">
+            INITIALIZING WATER SYSTEM
+            <span>...</span>
+        </div>
+
+
+        <div class="loadingBar">
+
+            <div class="loadingProgress"></div>
 
         </div>
 
-    </main>
-
-
-
-    <!-- ============================= -->
-    <!-- FOOTER -->
-    <!-- ============================= -->
-
-    <footer>
-
-        <p>
-            SURAKSHASAATHI // DIGITAL SAFETY
-        </p>
-
-        <p>
-            © 2026 SurakshaSaathi
-        </p>
-
-    </footer>
-
+    </div>
 
 </div>
 
 
-<!-- ============================= -->
-<!-- JAVASCRIPT -->
-<!-- ============================= -->
 
-<script src="script.js?v=2"></script>
+<!-- =====================================
+     MAIN WEBSITE
+===================================== -->
 
+<div id="mainWebsite">
+
+
+    <div class="container">
+
+
+        <!-- HEADER -->
+
+        <header>
+
+            <div class="systemStatus">
+                ● SYSTEM ONLINE
+            </div>
+
+            <h1>
+                VARUMIZU
+            </h1>
+
+            <p>
+                Water • Wisdom • Sustainability
+            </p>
+
+        </header>
+
+
+
+        <!-- MAIN -->
+
+        <main>
+
+            <h2>
+                Digital Safety Assistant
+            </h2>
+
+            <p class="intro">
+                Stay protected from suspicious messages,
+                links and digital scams.
+            </p>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button onclick="checkMessage()">
+                    🔍 Check a Message
+                </button>
+
+
+                <button onclick="checkLink()">
+                    🔗 Check a Link
+                </button>
+
+
+                <button onclick="showTips()">
+                    🛡️ Safety Tips
+                </button>
+
+            </div>
+
+
+
+            <!-- RESULT -->
+
+            <div id="result">
+
+                <h3>
+                    🛡️ Security Scanner Ready
+                </h3>
+
+                <p>
+                    Choose an option above to begin
+                    a safety check.
+                </p>
+
+            </div>
+
+        </main>
+
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <p>
+                VARUMIZU // DIGITAL SAFETY
+            </p>
+
+            <p>
+                WATER • WISDOM • SUSTAINABILITY
+            </p>
+
+            <p>
+                © 2026 VARUMIZU
+            </p>
+
+        </footer>
+
+
+    </div>
+
+</div>
+
+
+
+<script src="script.js?v=5"></script>
 
 </body>
 
