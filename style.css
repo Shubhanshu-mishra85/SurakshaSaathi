@@ -1,5 +1,6 @@
 /* =========================================
-   SURAKSHASAATHI // CYBER SECURITY UI
+   SURAKSHASAATHI
+   CYBER SECURITY UI
    ========================================= */
 
 * {
@@ -9,267 +10,173 @@
 }
 
 :root {
-    --bg: #050b12;
-    --panel: #0a141f;
-    --panel2: #0d1b29;
+    --bg: #03070b;
+    --panel: #08131e;
+    --panel-light: #0d1d2b;
+
     --cyan: #00e5ff;
     --green: #00ff9d;
-    --text: #e8f7ff;
-    --muted: #7d95a8;
-    --border: rgba(0, 229, 255, 0.18);
-    --danger: #ff3b5c;
-    --warning: #ffc247;
+
+    --white: #f2fbff;
+    --text: #c9dbe5;
+    --muted: #71899b;
+
+    --red: #ff3b5c;
+    --yellow: #ffc247;
+
+    --border: rgba(0, 229, 255, 0.22);
 }
 
-/* ---------- BODY ---------- */
+
+/* =========================================
+   BODY
+   ========================================= */
 
 body {
     font-family: "Courier New", monospace;
+
     background:
-        radial-gradient(circle at 50% -20%, rgba(0, 229, 255, 0.13), transparent 40%),
-        linear-gradient(180deg, #03070b 0%, #07111b 100%);
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(0, 229, 255, 0.15),
+            transparent 38%
+        ),
+        linear-gradient(
+            180deg,
+            #020509 0%,
+            #06111b 100%
+        );
+
     color: var(--text);
+
     min-height: 100vh;
+
     overflow-x: hidden;
 }
+
 
 /* Cyber grid */
 
 body::before {
     content: "";
+
     position: fixed;
+
     inset: 0;
+
     pointer-events: none;
-    opacity: 0.13;
+
+    opacity: 0.12;
 
     background-image:
-        linear-gradient(rgba(0, 229, 255, 0.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 229, 255, 0.12) 1px, transparent 1px);
+        linear-gradient(
+            rgba(0, 229, 255, 0.15) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 229, 255, 0.15) 1px,
+            transparent 1px
+        );
 
     background-size: 45px 45px;
 }
 
 
-/* ---------- MAIN CONTAINER ---------- */
+/* =========================================
+   CONTAINER
+   ========================================= */
 
 .container {
     width: min(1100px, 94%);
-    min-height: 100vh;
+
     margin: auto;
+
+    min-height: 100vh;
+
     position: relative;
 }
 
 
-/* ---------- HEADER ---------- */
+/* =========================================
+   HEADER
+   ========================================= */
 
 header {
-    margin-top: 30px;
-    padding: 35px 25px;
 
-    background: rgba(7, 17, 27, 0.88);
+    margin-top: 25px;
+
+    padding: 38px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(8, 25, 38, 0.97),
+            rgba(3, 12, 19, 0.97)
+        );
+
     border: 1px solid var(--border);
+
     border-radius: 18px;
 
     box-shadow:
-        0 0 35px rgba(0, 229, 255, 0.07),
+        0 0 35px rgba(0, 229, 255, 0.08),
         inset 0 0 30px rgba(0, 229, 255, 0.025);
-
-    text-align: center;
 }
 
+
+/* Status line */
+
 header::before {
-    content: "● SYSTEM ONLINE  •  THREAT MONITOR";
+
+    content:
+        "● SYSTEM ONLINE  //  THREAT MONITOR";
+
     display: block;
 
     color: var(--green);
+
     font-size: 12px;
+
     letter-spacing: 2px;
+
     margin-bottom: 20px;
+
+    text-shadow:
+        0 0 8px rgba(0, 255, 157, 0.6);
 }
 
+
 header h1 {
+
     font-family: Arial, sans-serif;
-    font-size: clamp(36px, 7vw, 62px);
-    letter-spacing: 5px;
+
+    font-size: clamp(
+        38px,
+        8vw,
+        64px
+    );
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
 
     color: var(--cyan);
 
     text-shadow:
-        0 0 8px rgba(0, 229, 255, 0.7),
+        0 0 8px rgba(0, 229, 255, 0.8),
         0 0 25px rgba(0, 229, 255, 0.35);
 
     margin-bottom: 12px;
 }
 
-header p {
-    color: var(--muted);
-    font-size: 15px;
-    letter-spacing: 1px;
-}
 
-
-/* ---------- MAIN ---------- */
-
-main {
-    margin-top: 25px;
-    padding: 40px 25px;
-
-    background: rgba(6, 14, 22, 0.88);
-
-    border: 1px solid var(--border);
-    border-radius: 18px;
-
-    box-shadow:
-        0 0 35px rgba(0, 229, 255, 0.04);
-}
-
-main h2 {
-    text-align: center;
-
-    font-family: Arial, sans-serif;
-    font-size: 30px;
-
-    color: var(--text);
-    margin-bottom: 12px;
-}
-
-.intro {
-    text-align: center;
-    color: var(--muted);
-    margin-bottom: 35px;
-}
-
-
-/* ---------- BUTTONS ---------- */
-
-.buttons {
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(210px, 1fr));
-
-    gap: 18px;
-}
-
-button {
-    position: relative;
-
-    min-height: 70px;
-
-    border: 1px solid rgba(0, 229, 255, 0.35);
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0, 229, 255, 0.08),
-            rgba(0, 255, 157, 0.035)
-        );
-
-    color: var(--cyan);
-
-    font-family: "Courier New", monospace;
-    font-size: 16px;
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
-}
-
-button:hover {
-    transform: translateY(-4px);
-
-    border-color: var(--cyan);
-
-    box-shadow:
-        0 0 15px rgba(0, 229, 255, 0.25),
-        inset 0 0 15px rgba(0, 229, 255, 0.05);
-
-    color: white;
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-
-/* ---------- RESULT PANEL ---------- */
-
-#result {
-    margin-top: 35px;
-    padding: 30px;
-
-    min-height: 120px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(10, 24, 37, 0.95),
-            rgba(5, 14, 22, 0.95)
-        );
-
-    border: 1px solid rgba(0, 229, 255, 0.18);
-    border-radius: 14px;
-
-    text-align: left;
-
-    box-shadow:
-        inset 0 0 25px rgba(0, 229, 255, 0.025);
-}
-
-#result h3 {
-    color: var(--cyan);
-
-    font-family: Arial, sans-serif;
-    font-size: 25px;
-
-    margin-bottom: 18px;
-}
-
-#result p {
-    color: #c5d7e3;
-    line-height: 1.8;
-    margin-bottom: 8px;
-}
-
-#result strong {
-    color: white;
-}
-
-#result hr {
-    border: none;
-    border-top: 1px solid rgba(0, 229, 255, 0.14);
-    margin: 20px 0;
-}
-
-
-/* ---------- FOOTER ---------- */
-
-footer {
-    margin: 25px 0;
-
-    padding: 18px;
-
-    text-align: center;
-
-    color: #526b7d;
-
-    border-top: 1px solid rgba(0, 229, 255, 0.1);
-
-    font-size: 12px;
-    letter-spacing: 1px;
-}
-
-
-/* ---------- TERMINAL EFFECT ---------- */
+/* Cursor */
 
 header h1::after {
+
     content: "_";
 
     color: var(--green);
@@ -277,45 +184,351 @@ header h1::after {
     animation: blink 1s infinite;
 }
 
+
+header p {
+
+    color: var(--muted);
+
+    font-size: 15px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   MAIN
+   ========================================= */
+
+main {
+
+    margin-top: 25px;
+
+    padding: 42px 25px;
+
+    background:
+        rgba(4, 13, 21, 0.94);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 35px rgba(0, 229, 255, 0.05);
+}
+
+
+main h2 {
+
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(
+        25px,
+        5vw,
+        34px
+    );
+
+    color: var(--white);
+
+    margin-bottom: 12px;
+}
+
+
+.intro {
+
+    text-align: center;
+
+    color: var(--muted);
+
+    margin-bottom: 35px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px, 1fr)
+        );
+
+    gap: 18px;
+}
+
+
+button {
+
+    min-height: 72px;
+
+    padding: 15px 20px;
+
+    border-radius: 12px;
+
+    border: 1px solid
+        rgba(0, 229, 255, 0.35);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 229, 255, 0.09),
+            rgba(0, 255, 157, 0.035)
+        );
+
+    color: var(--cyan);
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition:
+        0.25s ease;
+
+    box-shadow:
+        inset 0 0 15px
+        rgba(0, 229, 255, 0.02);
+}
+
+
+button:hover {
+
+    transform: translateY(-4px);
+
+    color: white;
+
+    border-color:
+        var(--cyan);
+
+    box-shadow:
+        0 0 20px
+        rgba(0, 229, 255, 0.25),
+
+        inset 0 0 20px
+        rgba(0, 229, 255, 0.05);
+}
+
+
+button:active {
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================
+   RESULT PANEL
+   ========================================= */
+
+#result {
+
+    margin-top: 35px;
+
+    padding: 28px;
+
+    min-height: 140px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9, 26, 40, 0.98),
+            rgba(3, 11, 18, 0.98)
+        );
+
+    border:
+        1px solid
+        rgba(0, 229, 255, 0.18);
+
+    border-radius: 14px;
+
+    text-align: left;
+
+    box-shadow:
+        inset 0 0 30px
+        rgba(0, 229, 255, 0.025);
+}
+
+
+#result h3 {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 25px;
+
+    color: var(--cyan);
+
+    margin-bottom: 18px;
+
+    text-shadow:
+        0 0 8px
+        rgba(0, 229, 255, 0.35);
+}
+
+
+#result p {
+
+    color: var(--text);
+
+    line-height: 1.8;
+
+    margin-bottom: 8px;
+}
+
+
+#result strong {
+
+    color: white;
+}
+
+
+#result hr {
+
+    border: none;
+
+    border-top:
+        1px solid
+        rgba(0, 229, 255, 0.15);
+
+    margin: 20px 0;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+
+    margin: 25px 0;
+
+    padding: 20px;
+
+    text-align: center;
+
+    border-top:
+        1px solid
+        rgba(0, 229, 255, 0.1);
+
+    color: #526b7d;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   ANIMATION
+   ========================================= */
+
 @keyframes blink {
-    0%, 45% {
+
+    0%,
+    45% {
         opacity: 1;
     }
 
-    46%, 100% {
+    46%,
+    100% {
         opacity: 0;
     }
 }
 
 
-/* ---------- MOBILE ---------- */
+/* =========================================
+   MOBILE
+   ========================================= */
 
 @media (max-width: 600px) {
 
-    header {
-        margin-top: 15px;
-        padding: 28px 15px;
+    .container {
+        width: 94%;
     }
+
+
+    header {
+
+        margin-top: 12px;
+
+        padding:
+            30px 15px;
+    }
+
 
     header h1 {
-        font-size: 36px;
-        letter-spacing: 3px;
+
+        font-size: 37px;
+
+        letter-spacing: 2px;
     }
+
+
+    header p {
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
 
     main {
-        padding: 30px 15px;
+
+        padding:
+            32px 15px;
     }
+
 
     main h2 {
-        font-size: 24px;
+
+        font-size: 25px;
+
+        line-height: 1.3;
     }
+
+
+    .intro {
+
+        font-size: 14px;
+    }
+
+
+    .buttons {
+
+        grid-template-columns: 1fr;
+    }
+
 
     button {
-        min-height: 65px;
-        font-size: 15px;
+
+        min-height: 68px;
+
+        font-size: 16px;
     }
 
+
     #result {
-        padding: 22px 18px;
+
+        padding: 22px 17px;
+    }
+
+
+    #result h3 {
+
+        font-size: 22px;
     }
 }
